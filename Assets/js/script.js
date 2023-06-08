@@ -1,7 +1,7 @@
 // fetch info from air quality api
 
 var zip= '97209';
-var requestURL = "http://api.openweathermap.org/data/2.5/air_pollution?q=" + zip + "&appid=e75af7a2b8b9ae694d1e5fe8ac3e5c75";
+var requestURL = "http://api.openweathermap.org/data/2.5/air_pollution?q=" + zip + "&appid={id_here}";
 
 fetch (requestURL)
 .then(function (response) {
