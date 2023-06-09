@@ -42,3 +42,22 @@ fetch (requestURL)
 
 
 // function get campgrounds from Google maps
+var mapsUrl =
+  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
+  latitude +
+  "%2C" +
+  longitude +
+  "&radius=" +
+  radius +
+  "&type=campground&rankby=distance&key=AIzaSyBbUsG9h8clR86p6Hqs5QtjViuXYG3eE04";
+
+fetch(mapsUrl).then(function (response) {
+  if (response.ok) {
+    response.json().then(function (data) {
+      console.log("Google Maps response is coming back OK");
+      console.log(data);
+    });
+  } else {
+    alert("Error: " + response.statusText);
+  }
+});
