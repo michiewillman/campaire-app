@@ -12,7 +12,7 @@ function getCoords(zip) {
   .then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        // console.log(data.lat, data.lon);
+        console.log(data);
         getAirQuality(data.lat, data.lon);
       })
     }
@@ -27,8 +27,8 @@ function getAirQuality(latitude, longitude) {
   .then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data.list[0].main.aqi);
         var aqi = data.list[0].main.aqi;
+        console.log(data);
         displayResults(aqi);
         // save to local storage here ?
       });
@@ -41,7 +41,7 @@ function getAirQuality(latitude, longitude) {
 function displayResults(aqi) {   
   var testDisplay = $('#current-air');
 
-  if (aqi >= 3) {
+  if (aqi <= 3) {
     testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Go Camping!");
   } else {
     testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Maybe not the best time to camp in this area.");
