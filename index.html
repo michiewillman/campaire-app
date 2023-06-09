@@ -12,19 +12,23 @@
     <h1>Find Nearby Campgrounds with Good Air Quality</h1>
   </header>
 
-  <div>
+  <div class="row">
     <div id="search-form">
       <label for="zip-input">Enter a ZipCode</label> 
-      <input id="zip-input" type="text" placeholder="90210">
+      <input id="zip-input" type="number" placeholder="90210">
       <button class="btn search-button">Search</button>
     </div>
   </div>
 
-  <div>
+  <div class="row">
     <div id="search-results">
+      <div id="current-air"></div>
       <div id="campgrounds">
         <ul id="campground-list">
         </ul>
+      </div>
+      <div id="nearby-zips">
+        <ul></ul>
       </div>
     </div>
   </div>
