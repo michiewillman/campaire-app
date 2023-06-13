@@ -45,16 +45,41 @@
 
   <!-- Results Section -->
   <div class="row">
-    <div id="search-results">
+    <div id="search-results" class="hidden">
       <!-- Current AQI results -->
       <div id="current-air">
         <h2>Current Air Quality in</h2>
         <p class="display-aqi"></p>
-        <p class="result-message"></p>
+        <div class="ui floating positive message">
+          <p>Pack your things, the air quality is ____ (moderate, fair, good).</p>
+        </div>
+        <div class="ui floating negative message">
+          <p>The air quality around you is ____ (poor, very poor).
+            Maybe not the best time to camp.<br>Curl up with a good book and minimize your time outside.
+            <br><br>
+            In the meantime, please check out these great organizations and how you can help fight climate change and its effects.
+            </p>
+        </div>
       </div>
       <div id="campgrounds">
-        <h3 class="hide">Check out these campsites</h3>
+        <h3 class="hidden">Check out these campsites</h3>
         <!-- <map name=""></map>  -->
+      </div>
+      <div id="resources-container">
+        <div class="ui card resource">
+          <div class="image">
+            <img src="">
+          </div>
+          <div class="content">
+            <a class="header">Smokey Bear</a>
+            <div class="description">
+              See how you can help prevent wildfires.
+            </div>
+            <button class="ui button">Learn More</button>
+          </div>
+        </div>
+        <div class="ui card resource"></div>
+        <div class="ui card resource"></div>
       </div>
     </div>
   </div>
