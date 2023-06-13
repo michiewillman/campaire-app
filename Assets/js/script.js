@@ -1,11 +1,14 @@
 $(document).ready(function () {
   // Global variables
+  const googleApiKey = "AIzaSyBbUsG9h8clR86p6Hqs5QtjViuXYG3eE04";
+  const openWeatherKey = "1cca1ff3113de5f3c3d237f233f7da56";
+  const recGovApiKey = "0ffd0940-cacd-44b9-ab58-184877e57275";
   var zipInput = $("#zip-input").val();
-  var googleApiKey = "AIzaSyBbUsG9h8clR86p6Hqs5QtjViuXYG3eE04";
-  var openWeatherKey = "1cca1ff3113de5f3c3d237f233f7da56";
-  var recGovApiKey = "0ffd0940-cacd-44b9-ab58-184877e57275";
   var zip;
+  var searchBtn = $("#search-button");
   var map;
+
+  console.log("zipInput: " + zipInput);
 
   // Uses user input if it exists, else it uses a default
   if (zipInput) {
@@ -14,15 +17,8 @@ $(document).ready(function () {
     zip = "97209";
   }
 
-  // troubleshooting google maps
-  function initialize() {
-    map = new google.maps.Map(document.getElementById("map"));
-  }
-
-  // function to get local storage and render last zipcode
-
   // Get coordinates for the user-inputted Zipcode
-  function getCoords(zip) {
+  function getCoords() {
     var coordsURL =
       "http://api.openweathermap.org/geo/1.0/zip?zip=" +
       zip +
@@ -31,35 +27,56 @@ $(document).ready(function () {
     fetch(coordsURL).then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          var coordinates = { lat: data.lat, lon: data.lon };
+          var coordinates = { lat: data.lat, lng: data.lon };
           console.log(data.lat, data.lon);
           console.log(coordinates);
 
+          initMap(coordinates);
           // getAirQuality(coordinates);
-          getCampgrounds(coordinates);
+          // getCampgrounds(coordinates);
         });
       }
     });
   }
 
-  // Get air quality data for entered zip code
-  // function getAirQuality(coordinates) {
-  //   var requestURL =
-  //     "http://api.openweathermap.org/data/2.5/air_pollution?q=" +
-  //     zip +
-  //     "&appid=1cca1ff3113de5f3c3d237f233f7da56";
+  async function initMap(coordinates) {
+    // The location of Uluru
+    // const position = { lat: -25.344, lng: 131.031 };
+    // Request needed libraries.
+    //@ts-ignore
+    const { Map } = await google.maps.importLibrary("maps");
+    const { PlacesService } = await google.maps.importLibrary("places");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary(
+      "marker"
+    );
 
-  //   fetch(requestURL).then(function (response) {
-  //     if (response.ok) {
-  //       response.json().then(function (data) {
-  //         console.log("response is coming back ok");
-  //         console.log(data);
-  //       });
-  //     } else {
-  //       alert("Error: " + response.statusText);
-  //     }
-  //   });
-  // }
+    // The map, centered at Uluru
+    map = new Map(document.getElementById("map"), {
+      zoom: 4,
+      center: coordinates,
+      mapId: "DEMO_MAP_ID",
+    });
+
+    const nearby = new PlacesService({
+      location: coordinates,
+      rankBy: "DISTANCE",
+      type: "campground",
+    });
+
+    console.log(nearby);
+
+    // The marker, positioned at Uluru
+    const marker = new AdvancedMarkerElement({
+      map: map,
+      position: coordinates,
+      title: "Here",
+    });
+  }
+
+  // function to get local storage and render last zipcode
+
+  // Get air quality data for entered zip code
+  // OpenAir > Quinn
 
   // if (airQuality is Good || Fair || Moderate) {
   //   then we run get campgrounds from Google maps
@@ -69,36 +86,29 @@ $(document).ready(function () {
 
   // Gets campgrounds from Google maps
   function getCampgrounds(coordinates) {
-    var latitude = coordinates.lat;
-    var longitude = coordinates.lon;
+    // var lat = coordinates.lat;
+    // var lon = coordinates.lng;
     var radius = 50000;
 
-    var mapsUrl =
-      "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
-      latitude +
-      "%2C" +
-      longitude +
-      "&radius=" +
-      radius +
-      "&type=campground&rankby=distance&key=" +
-      googleApiKey;
+    // var mapsUrl =
+    //   "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
+    //   lat +
+    //   "%2C" +
+    //   lon +
+    //   "&radius=50000&type=campground&rankby=distance&mode=no-cors&key=" +
+    //   googleApiKey;
 
-    fetch(mapsUrl).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log("Google Maps response is coming back OK");
-          console.log(data);
-        });
-      } else {
-        alert("Error: " + response.statusText);
-      }
-    });
+    // fetch(mapsUrl).then(function (response) {
+    //   if (response.ok) {
+    //     response.json().then(function (data) {
+    //       console.log("Google Maps response is coming back OK");
+    //       console.log(data);
+    //     });
+    //   } else {
+    //     alert("Error: " + response.statusText);
+    //   }
+    // });
   }
 
-  // Gets campsites from recreation.gov
-  // function getCampgrounds(){
-  //   var campsitesUrl =
-  // }
-
-  getCoords(zip);
+  searchBtn.on("click", getCoords);
 });
