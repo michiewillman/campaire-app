@@ -49,11 +49,14 @@ function displayResults(aqi) {
     var otherZips = $('#nearby-zips');
     otherZips.text("Try searching these closest zipcodes. They have a bit better air quality.");
   }
-
 }
 
 // Searches the inputted Zipcode on search-button click
 function searchZipcode(event) {
+  
+  // If user has nothing in local storage, show entry screen + hide results.
+  // If user has something in local storage, hide entry screen + show results.
+
   event.preventDefault();
   var zip = zipInput.val();
 
