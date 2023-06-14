@@ -16,7 +16,7 @@ body {
 
 #entry-screen {
   position: relative;
-  background-image: url("Assets/images/camping-background-hazy.jpg");
+  background-image: url("Assets/camping-background-hazy.jpg");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
