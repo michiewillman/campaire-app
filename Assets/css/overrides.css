@@ -1,0 +1,31 @@
+:root {
+  --primary: #52796F;
+  --secondary: #354F52;
+  --dark: #2F3E46;
+  --light: #FEFAE0;
+  --earth: #DDA15E;
+  --tigerseye: #BC6C25;
+  --corners: 15px;
+}
+
+.ui.button {
+  color: var(--light);
+  background: var(--tigerseye);
+}
+
+.ui.button:hover {
+  color: var(--light);
+  background: var(--earth);
+}
+
+/* .ui.floating.positive.message {
+  border-radius: var(--corners);
+}
+
+.ui.floating.negative.message {
+  border-radius: var(--corners);
+}
+
+.ui .card {
+  border-radius: var(--corners);
+} */

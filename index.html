@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css"> 
+  <link rel="stylesheet" href="./Assets/css/site-variables.css">
+  <link rel="stylesheet" href="./Assets/css/overrides.css">
   <link rel="stylesheet" href="./Assets/css/style.css">
   <title>Camping for Air Quality Generator</title>
 </head>
@@ -13,23 +16,21 @@
   </header>
 
   <!-- This will be a Fomantic modal component -->
-  <div id="entry-screen" class="row ui"> <!-- add 'modal' class eventually -->
-    <!-- <h1>Get some fresh air.
-    </h1>
-    <p>Ensure you have a great camping experience by checking your destination's air quality.
-      We can help you decide where to go.
-      </p>
-      <div class="search-form">
-        <label for="zip-input">Enter Zip Code</label> 
-        <div class="ui action input zip-input">
-          <input type="text" placeholder="Ex: 90210">
-          <button class="ui icon button search-button">
-            <i class="search icon"></i>
-          </button>
-        </div>
-  </div> -->
+  <section id="entry-screen">
+    <div id="entry-content" class="search-form"> <!-- Make this modal via fomantic? -->
+      <h1>Get some fresh air.</h1>
+      <p>Ensure you have a great camping experience by checking your destination's air quality. We can help you decide where to go.</p>
+      <label for="zip-input">Enter Zip Code</label> 
+      <div class="ui action input zip-input">
+        <input type="text" placeholder="Ex: 90210">
+        <button class="ui icon button search-button">
+          <i class="search icon"></i>
+        </button>
+          </div>
+    </div>
+  </section>
 
-  <main class="ui stackable grid">
+  <section id="content-container" class="ui stackable grid">
       <!-- Left Sidebar sections -->
   <div id="col-one" class="four wide column">
 
@@ -66,22 +67,24 @@
 
       <!-- Current AQI results -->
       <div id="current-air">
-        <h2>Current Air Quality in</h2>
+        <h2>Current Air Quality in ____ is GOOD!</h2> <!-- Add this content dynamically-->
         <p class="display-aqi"></p>
         <div class="ui floating positive message">
-          <p>Pack your things, the air quality is ____ (moderate, fair, good).</p>
+          <p><i class="check square icon"></i>Pack your things, the air quality is ____ (moderate, fair, good).</p>
         </div>
         <div class="ui floating negative message">
-          <p>The air quality around you is ____ (poor, very poor).
+          <p><i class="exclamation circle
+            icon"></i>
+            The air quality around you is ____ (poor, very poor).
             Maybe not the best time to camp.<br>Curl up with a good book and minimize your time outside.
             <br><br>
-            In the meantime, please check out these great organizations and how you can help fight climate change and its effects.
+            In the meantime, please check out the great organizations below and how you can help fight air pollution.
             </p>
         </div>
       </div>
 
       <div id="campgrounds">
-        <h3 class="hidden">Check out these campsites</h3>
+        <h3></h3>
         <!-- <map name=""></map>  -->
       </div>
 
@@ -139,11 +142,10 @@
     </div>
   </div>
 
-  </main>
+  </section>
 
   <!-- Required: Use JQuery 3 to use Fomantic UI framework -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script> <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css"> 
   <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.js"></script>
   <script src="./Assets/js/script.js"></script>
 </body>

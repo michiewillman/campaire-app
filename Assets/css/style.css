@@ -1,8 +1,75 @@
-body {
-  margin: 20px;
-  padding: 20px;
+/* Global Styles */
+:root {
+--primary: #52796F;
+--secondary: #354F52;
+--dark: #2F3E46;
+--light: #FEFAE0;
+--earth: #DDA15E;
+--tigerseye: #BC6C25;
 }
 
+body {
+  background-color: var(--dark);
+  margin: 0;
+  padding: 0;
+}
+
+#entry-screen {
+  position: relative;
+  background-image: url("/Users/michiewillman/bootcamp/Project Submissions/UofO_G4_Project-01/Assets/images/camping-3893587_1920.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* #entry-container {
+  text-align: center;
+  position: absolute;
+  left : 30%;
+top: 30%;
+  width: 50%;
+background-color: rgba(256 , 256,256,0.5);
+font-size: 30px;
+} */
+
+header {
+  padding: 20px;
+  color: var(--light);
+  background-color: var(--primary);
+  border-radius: 0 0 15px 15px;
+}
+
+/* Main Content Container */
+#content-container {
+  color: var(--light);
+  padding: 20px;
+  /* background-color: var(--dark); */
+}
+
+/* Search Form */
+#col-one .search-form {
+  color: var(--dark);
+}
+
+#col-one .search-form input {
+  width: 80%;
+}
+
+/* Results Section */
 .message {
   max-width: 600px;
+}
+
+/* Extra Resources Section */
+#resources-container {
+  padding: 20px 0;
+}
+
+.resource .content {
+  padding: 10px;
+}
+
+.resource button {
+  width: 60%;
 }
