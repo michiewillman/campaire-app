@@ -10,7 +10,7 @@ $(document).ready(function () {
 
   console.log("zipInput: " + zipInput);
 
-// function to get local storageg and render last zipcode
+  // function to get local storageg and render last zipcode
 
   // Get coordinates for the user-inputted Zipcode
   function getCoords() {
@@ -19,16 +19,15 @@ $(document).ready(function () {
       zip +
       "&appid=1cca1ff3113de5f3c3d237f233f7da56";
 
-  fetch (coordsURL)
-  .then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        // console.log(data.lat, data.lon);
-        getAirQuality(data.lat, data.lon);
-      })
-    }
-  });
-}
+    fetch(coordsURL).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          // console.log(data.lat, data.lon);
+          getAirQuality(data.lat, data.lon);
+        });
+      }
+    });
+  }
 
   async function initMap(coordinates) {
     // The location of Uluru
@@ -48,52 +47,60 @@ $(document).ready(function () {
       mapId: "DEMO_MAP_ID",
     });
 
-  fetch (airQualityUrl)
-  .then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        var aqi = data.list[0].main.aqi;
-        console.log(data);
-        displayResults(aqi);
-        // save to local storage here ?
-      });
+    fetch(airQualityUrl).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          var aqi = data.list[0].main.aqi;
+          console.log(data);
+          displayResults(aqi);
+          // save to local storage here ?
+        });
+      } else {
+        alert("Error: " + response.statusText);
+      }
+    });
+
+    // function to get local storage and render last zipcode
+
+    if (aqi >= 3) {
+      testDisplay.text(
+        "Current air quality in " +
+          zipInput.val() +
+          " is " +
+          aqi +
+          ". Go Camping!"
+      );
     } else {
-      alert('Error: ' + response.statusText);
+      testDisplay.text(
+        "Current air quality in " +
+          zipInput.val() +
+          " is " +
+          aqi +
+          ". Maybe not the best time to camp in this area."
+      );
+      // Suggest other zipcodes to camp in ?
+      var otherZips = $("#nearby-zips");
+      otherZips.text(
+        "Try searching these closest zipcodes. They have a bit better air quality."
+      );
     }
-  });
-}
-
-  // function to get local storage and render last zipcode
-
-  if (aqi >= 3) {
-    testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Go Camping!");
-  } else {
-    testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Maybe not the best time to camp in this area.");
-    // Suggest other zipcodes to camp in ?
-    var otherZips = $('#nearby-zips');
-    otherZips.text("Try searching these closest zipcodes. They have a bit better air quality.");
   }
 
-}
+  // Searches the inputted Zipcode on search-button click
+  function searchZipcode(event) {
+    event.preventDefault();
+    var zip = zipInput.val();
 
-// Searches the inputted Zipcode on search-button click
-function searchZipcode(event) {
-  event.preventDefault();
-  var zip = zipInput.val();
+    // If  Zipcode is inputted when button is clicked
+    if (zip) {
+      getCoords(zip);
+      // TODO: clear the input form
+    }
 
-  // If  Zipcode is inputted when button is clicked
-  if (zip) {
-    getCoords(zip);
-    // TODO: clear the input form
+    // TODO: function to save inputted zipcode to local storage
   }
 
-  // TODO: function to save inputted zipcode to local storage
-}
-
-
-// function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
-
-
+  // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
 
   // if (airQuality is Good || Fair || Moderate) {
   //   then we run get campgrounds from Google maps

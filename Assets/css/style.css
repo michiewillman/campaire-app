@@ -1,15 +1,11 @@
-#map {
-  min-height: 50vh;
-  width: 50vw;
-}
 /* Global Styles */
 :root {
---primary: #52796F;
---secondary: #354F52;
---dark: #2F3E46;
---light: #FEFAE0;
---earth: #DDA15E;
---tigerseye: #BC6C25;
+  --primary: #52796f;
+  --secondary: #354f52;
+  --dark: #2f3e46;
+  --light: #fefae0;
+  --earth: #dda15e;
+  --tigerseye: #bc6c25;
 }
 
 body {
@@ -51,6 +47,11 @@ header {
   color: var(--light);
   padding: 20px;
   /* background-color: var(--dark); */
+}
+
+#map {
+  min-height: 50vh;
+  width: 50vw;
 }
 
 /* Search Form */
