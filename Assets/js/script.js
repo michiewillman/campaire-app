@@ -2,7 +2,7 @@
 var zipInput = $('#zip-input');
 
 
-// function to get local storageg and render last zipcode
+// function to get local storage & render last 3-4 zipcodes
 
 // Get coordinates for the user-inputted Zipcode
 function getCoords(zip) {

@@ -13,13 +13,29 @@
   </header>
 
   <!-- This will be a Fomantic modal component -->
-  <div id="entry-screen"></div>
+  <div id="entry-screen" class="row ui"> <!-- add 'modal' class eventually -->
+    <!-- <h1>Get some fresh air.
+    </h1>
+    <p>Ensure you have a great camping experience by checking your destination's air quality.
+      We can help you decide where to go.
+      </p>
+      <div class="search-form">
+        <label for="zip-input">Enter Zip Code</label> 
+        <div class="ui action input zip-input">
+          <input type="text" placeholder="Ex: 90210">
+          <button class="ui icon button search-button">
+            <i class="search icon"></i>
+          </button>
+        </div>
+  </div> -->
 
-  <!-- Left Sidebar sections -->
-  <div class="row">
-    <div id="search-form">
-      <label for="zip-input">Search a ZipCode</label> 
-      <div id="zip-input" class="ui action input">
+  <main class="ui stackable grid">
+      <!-- Left Sidebar sections -->
+  <div id="col-one" class="four wide column">
+
+    <div class="search-form ui segment">
+      <label for="zip-input">Search Zip Code</label> 
+      <div class="ui action input zip-input">
         <input type="text" placeholder="Ex: 90210">
         <button class="ui icon button search-button">
           <i class="search icon"></i>
@@ -28,7 +44,7 @@
     </div>
 
     <!-- Camping area suggestions -->
-    <div id="suggested">
+    <div id="suggested ui segment">
       <p>Not sure where to get away?</p>
       <p>Great areas to camp right now:</p>
       <div class="suggestion">
@@ -41,11 +57,13 @@
         <img src="" alt="">
       </div>
     </div>
+
   </div>
 
   <!-- Results Section -->
-  <div class="row">
+  <div id="col-two" class="twelve wide column">
     <div id="search-results" class="hidden">
+
       <!-- Current AQI results -->
       <div id="current-air">
         <h2>Current Air Quality in</h2>
@@ -61,12 +79,15 @@
             </p>
         </div>
       </div>
+
       <div id="campgrounds">
         <h3 class="hidden">Check out these campsites</h3>
         <!-- <map name=""></map>  -->
       </div>
-      <div id="resources-container">
-        <div class="ui card resource">
+
+      <div id="resources-container" class="ui equal width stackable grid">
+        <div class="column">        
+          <div class="ui card resource">
           <div class="image">
             <img src="">
           </div>
@@ -80,13 +101,45 @@
             </a> 
           </div>
         </div>
-        <div class="ui card resource"></div>
-        <div class="ui card resource"></div>
+        </div>
+        <div class="column">        
+          <div class="ui card resource">
+          <div class="image">
+            <img src="">
+          </div>
+          <div class="content">
+            <a class="header">Smokey Bear</a>
+            <div class="description">
+              See how you can help prevent wildfires.
+            </div>
+            <a href="https://smokeybear.com/">
+              <button class="ui animated button">Learn More</button>
+            </a> 
+          </div>
+        </div>
+        </div>
+        <div class="column">        
+          <div class="ui card resource">
+          <div class="image">
+            <img src="">
+          </div>
+          <div class="content">
+            <a class="header">Smokey Bear</a>
+            <div class="description">
+              See how you can help prevent wildfires.
+            </div>
+            <a href="https://smokeybear.com/">
+              <button class="ui animated button">Learn More</button>
+            </a> 
+          </div>
+        </div>
         </div>
       </div>
+
     </div>
   </div>
 
+  </main>
 
   <!-- Required: Use JQuery 3 to use Fomantic UI framework -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
