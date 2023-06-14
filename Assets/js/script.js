@@ -10,12 +10,7 @@ $(document).ready(function () {
 
   console.log("zipInput: " + zipInput);
 
-  // Uses user input if it exists, else it uses a default
-  if (zipInput) {
-    zip = zipInput;
-  } else {
-    zip = "97209";
-  }
+// function to get local storageg and render last zipcode
 
   // Get coordinates for the user-inputted Zipcode
   function getCoords() {
@@ -24,20 +19,87 @@ $(document).ready(function () {
       zip +
       "&appid=1cca1ff3113de5f3c3d237f233f7da56";
 
-    fetch(coordsURL).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          var coordinates = { lat: data.lat, lng: data.lon };
-          console.log(data.lat, data.lon);
-          console.log(coordinates);
+  fetch (coordsURL)
+  .then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        // console.log(data.lat, data.lon);
+        getAirQuality(data.lat, data.lon);
+      })
+    }
+  });
+}
 
-          initMap(coordinates);
-          // getAirQuality(coordinates);
-          // getCampgrounds(coordinates);
-        });
-      }
+  async function initMap(coordinates) {
+    // The location of Uluru
+    // const position = { lat: -25.344, lng: 131.031 };
+    // Request needed libraries.
+    //@ts-ignore
+    const { Map } = await google.maps.importLibrary("maps");
+    const { PlacesService } = await google.maps.importLibrary("places");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary(
+      "marker"
+    );
+
+    // The map, centered at Uluru
+    map = new Map(document.getElementById("map"), {
+      zoom: 4,
+      center: coordinates,
+      mapId: "DEMO_MAP_ID",
     });
+
+  fetch (airQualityUrl)
+  .then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        var aqi = data.list[0].main.aqi;
+        console.log(data);
+        displayResults(aqi);
+        // save to local storage here ?
+      });
+    } else {
+      alert('Error: ' + response.statusText);
+    }
+  });
+}
+
+  // function to get local storage and render last zipcode
+
+  if (aqi >= 3) {
+    testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Go Camping!");
+  } else {
+    testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Maybe not the best time to camp in this area.");
+    // Suggest other zipcodes to camp in ?
+    var otherZips = $('#nearby-zips');
+    otherZips.text("Try searching these closest zipcodes. They have a bit better air quality.");
   }
+
+}
+
+// Searches the inputted Zipcode on search-button click
+function searchZipcode(event) {
+  event.preventDefault();
+  var zip = zipInput.val();
+
+  // If  Zipcode is inputted when button is clicked
+  if (zip) {
+    getCoords(zip);
+    // TODO: clear the input form
+  }
+
+  // TODO: function to save inputted zipcode to local storage
+}
+
+
+// function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
+
+
+
+  // if (airQuality is Good || Fair || Moderate) {
+  //   then we run get campgrounds from Google maps
+  // } else if (airQuality is Poor or Very Poor {
+  //   then we display a message to not go camping
+  // })
 
   async function initMap(coordinates) {
     // The location of Uluru
@@ -72,17 +134,6 @@ $(document).ready(function () {
       title: "Here",
     });
   }
-
-  // function to get local storage and render last zipcode
-
-  // Get air quality data for entered zip code
-  // OpenAir > Quinn
-
-  // if (airQuality is Good || Fair || Moderate) {
-  //   then we run get campgrounds from Google maps
-  // } else if (airQuality is Poor or Very Poor {
-  //   then we display a message to not go camping
-  // })
 
   // Gets campgrounds from Google maps
   function getCampgrounds(coordinates) {
