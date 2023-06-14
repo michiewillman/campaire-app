@@ -16,7 +16,7 @@ body {
 
 #entry-screen {
   position: relative;
-  background-image: url("/Users/michiewillman/bootcamp/Project Submissions/UofO_G4_Project-01/Assets/images/camping-3893587_1920.jpg");
+  background-image: url("Assets/images/camping-background-hazy.jpg");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
