@@ -99,7 +99,7 @@ async function getCampgrounds(lat, lng) {
     "marker"
   );
   const { PlacesService } = await google.maps.importLibrary("places");
-  const coordinates = new google.maps.LatLng(lat, lng);
+  var coordinates = new google.maps.LatLng(lat, lng);
 
   // The map, centered at searched zip
   map = new Map(document.getElementById("map"), {
@@ -113,6 +113,22 @@ async function getCampgrounds(lat, lng) {
     map: map,
     position: coordinates,
     title: zip.toString(),
+  });
+
+  const request = {
+    location: coordinates,
+    radius: 50000,
+    type: "campground",
+  };
+
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (let i = 0; i < results.length; i++) {
+        console.log("results[" + i + "]: " + results[i]);
+        createMarker(results[i]);
+      }
+    }
   });
 }
 
