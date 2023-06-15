@@ -59,6 +59,11 @@ header {
   /* background-color: var(--dark); */
 }
 
+#map {
+  min-height: 50vh;
+  width: 50vw;
+}
+
 /* Search Form */
 #col-one .search-form {
   color: var(--dark);
