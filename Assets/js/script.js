@@ -16,7 +16,6 @@ function getCoords(zip) {
   fetch(coordsURL).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        
         console.log(data);
         console.log(data.lat, data.lon);
 
@@ -39,7 +38,7 @@ function getAirQuality(latitude, longitude) {
     if (response.ok) {
       response.json().then(function (data) {
         var aqi = data.list[0].main.aqi;
-      
+
         console.log(data);
 
         getCampgrounds(latitude, longitude);
@@ -56,7 +55,13 @@ function displayResults(aqi) {
   var testDisplay = $("#current-air");
 
   if (aqi <= 3) {
-    testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Go Camping!");
+    testDisplay.text(
+      "Current air quality in " +
+        zipInput.val() +
+        " is " +
+        aqi +
+        ". Go Camping!"
+    );
   } else {
     testDisplay.text(
       "Current air quality in " +
@@ -75,7 +80,6 @@ function displayResults(aqi) {
 
 // Searches the inputted Zipcode on search-button click
 function searchZipcode(event) {
-  
   // If user has nothing in local storage, show entry screen + hide results.
   // If user has something in local storage, hide entry screen + show results.
 
@@ -130,6 +134,16 @@ async function getCampgrounds(lat, lng) {
         createMarker(results[i]);
       }
     }
+  });
+}
+
+function createMarker(result) {
+  console.log("result: " + result);
+
+  var position = result;
+
+  new google.maps.Marker({
+    position: result,
   });
 }
 
