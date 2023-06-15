@@ -12,9 +12,9 @@
   --primary: #687876;
   --secondary: #486f6a;
   --dark: #171716;
-  --light: #FCFBF2;
-  --earth: #F5A83E;
-  --tigerseye: #C45105;
+  --light: #fcfbf2;
+  --earth: #f5a83e;
+  --tigerseye: #c45105;
   --corners: 15px;
 }
 
@@ -27,7 +27,7 @@ body {
 #entry-screen {
   position: relative;
   /* Not sure why relative path isn't working */
-  background-image: url("/Users/michiewillman/bootcamp/Project Submissions/UofO_G4_Project-01/Assets/images/camping-background-hazy.jpg");
+  background-image: url("../images/camping-background-hazy.jpg");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
