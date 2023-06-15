@@ -1,6 +1,5 @@
 var zipInput = $('#zip-input');
 var latLongInput = $('#zip-input');
-var airnowAPI = ('8EBC362A-4EB7-4EC2-ABB1-FBA385B90C7D');
 var locationAPI = ('pk.89ed628237a7d3a065d576b871965ac0');
 var iQAirAPI = ('3ac59854-8742-4b4c-b4f1-4ea76e8f0301');
 
@@ -33,10 +32,6 @@ function getAirQuality(lat, lon) {
         if(response.ok) {
             response.json().then(function (data) {
                
-                
-                
-                console.log(data.data.current.pollution.aqius);
-
                 var aqi = data.data.current.pollution.aqius;
                 var loc = data.data.city
 
