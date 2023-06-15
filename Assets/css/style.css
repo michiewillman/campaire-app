@@ -25,9 +25,8 @@ body {
 }
 
 #entry-screen {
-  position: relative;
   /* Not sure why relative path isn't working */
-  background-image: url("/Users/michiewillman/bootcamp/Project Submissions/UofO_G4_Project-01/Assets/images/camping-background-hazy.jpg");
+  background-image: url("/Assets/images/camping-background-hazy.jpg");
   height: 90vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -47,6 +46,14 @@ body {
   transform: translate(-50%,-50%);
 }
 
+label {
+  padding: 0 10px 0 0;
+}
+
+.zip-input {
+  margin: 10px 0 0 0;
+}
+
 header {
   padding: 20px;
   height: 10vh;
@@ -59,16 +66,17 @@ header {
 #content-container {
   color: var(--light);
   padding: 20px;
-  /* background-color: var(--dark); */
 }
 
 /* Search Form */
 #col-one .search-form {
   color: var(--dark);
+  display: flex;
+  justify-content: center;
 }
 
 #col-one .search-form input {
-  width: 80%;
+  width: 90%;
 }
 
 /* Results Section */
@@ -82,6 +90,10 @@ header {
   max-width: 800px;
 }
 
-/* .resource button {
-  margin: 10px 0;
-} */
+.resource {
+  min-height: 800px;
+}
+
+.r-button {
+  margin: 20px 0 0 0;
+}
