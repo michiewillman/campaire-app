@@ -1,15 +1,25 @@
-/* Global Styles */
-:root {
+/* Global Styles - old colors for reference */
+/* :root {
 --primary: #52796F;
 --secondary: #354F52;
 --dark: #2F3E46;
 --light: #FEFAE0;
 --earth: #DDA15E;
 --tigerseye: #BC6C25;
+} */
+
+:root {
+  --primary: #687876;
+  --secondary: #486f6a;
+  --dark: #171716;
+  --light: #FCFBF2;
+  --earth: #F5A83E;
+  --tigerseye: #C45105;
+  --corners: 15px;
 }
 
 body {
-  background-color: var(--dark);
+  background-color: var(--primary);
   margin: 0;
   padding: 0;
 }
