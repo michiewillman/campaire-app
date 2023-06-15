@@ -4,7 +4,7 @@ var map;
 var googleMapId = "3ee7328d82b483e6";
 var zip = 97203;
 
-// function to get local storage and render last zipcode
+// function to get local storage & render last 3-4 zipcodes
 
 // Get coordinates for the user-inputted Zipcode
 function getCoords(zip) {
@@ -16,6 +16,8 @@ function getCoords(zip) {
   fetch(coordsURL).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
+        
+        console.log(data);
         console.log(data.lat, data.lon);
 
         getAirQuality(data.lat, data.lon);
@@ -36,8 +38,9 @@ function getAirQuality(latitude, longitude) {
   fetch(airQualityUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data.list[0].main.aqi);
         var aqi = data.list[0].main.aqi;
+      
+        console.log(data);
 
         getCampgrounds(latitude, longitude);
         displayResults(aqi);
@@ -52,14 +55,8 @@ function getAirQuality(latitude, longitude) {
 function displayResults(aqi) {
   var testDisplay = $("#current-air");
 
-  if (aqi >= 3) {
-    testDisplay.text(
-      "Current air quality in " +
-        zipInput.val() +
-        " is " +
-        aqi +
-        ". Go Camping!"
-    );
+  if (aqi <= 3) {
+    testDisplay.text("Current air quality in " + zipInput.val() + " is " + aqi + ". Go Camping!");
   } else {
     testDisplay.text(
       "Current air quality in " +
@@ -78,6 +75,10 @@ function displayResults(aqi) {
 
 // Searches the inputted Zipcode on search-button click
 function searchZipcode(event) {
+  
+  // If user has nothing in local storage, show entry screen + hide results.
+  // If user has something in local storage, hide entry screen + show results.
+
   event.preventDefault();
   var zip = zipInput.val();
 
