@@ -3,7 +3,7 @@ var zipInput = $("#zip-input");
 var map;
 var zip = 97203;
 
-// function to get local storageg and render last zipcode
+// function to get local storage and render last zipcode
 
 // Get coordinates for the user-inputted Zipcode
 function getCoords(zip) {
@@ -15,7 +15,7 @@ function getCoords(zip) {
   fetch(coordsURL).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        // console.log(data.lat, data.lon);
+        console.log(data.lat, data.lon);
 
         getAirQuality(data.lat, data.lon);
       });
@@ -38,6 +38,7 @@ function getAirQuality(latitude, longitude) {
         console.log(data.list[0].main.aqi);
         var aqi = data.list[0].main.aqi;
 
+        getCampgrounds(latitude, longitude);
         displayResults(aqi);
         // save to local storage here ?
       });
@@ -91,28 +92,38 @@ function searchZipcode(event) {
 }
 
 // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
-async function initMap(lat, lng) {
-  // Request needed libraries.
-  //@ts-ignore
+async function getCampgrounds(lat, lng) {
   const { Map } = await google.maps.importLibrary("maps");
-  const { PlacesService } = await google.maps.importLibrary("places");
   const { AdvancedMarkerElement } = await google.maps.importLibrary(
     "marker"
   );
-  const coordinates = { lat, lng };
+  const { PlacesService } = await google.maps.importLibrary("places");
+  const coordinates = new google.maps.LatLng(lat, lng);
+}
+
+// Sets initial map
+async function initMap(lat, lng) {
+  console.log("Lat: " + lat + ", Lng: " + lng);
+
+  // Request needed libraries.
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary(
+    "marker"
+  );
+  const coordinates = new google.maps.LatLng(lat, lng);
 
   // The map, centered at Portland
   map = new Map(document.getElementById("map"), {
     zoom: 10,
     center: coordinates,
-    mapId: "DEMO_MAP_ID",
   });
 
   // The marker, positioned at Uluru
   const marker = new AdvancedMarkerElement({
     map: map,
     position: coordinates,
-    title: "Here",
+    title: "Portland, OR",
   });
 }
 
@@ -125,4 +136,4 @@ async function initMap(lat, lng) {
 // Search button Event Listener
 var searchBtn = $(".search-button");
 searchBtn.on("click", searchZipcode);
-initMap();
+initMap(45.5152, -122.6784);
