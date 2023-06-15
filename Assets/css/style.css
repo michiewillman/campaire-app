@@ -26,7 +26,7 @@ body {
 
 #entry-screen {
   /* Not sure why relative path isn't working */
-  background-image: url("/Assets/images/camping-background-hazy.jpg");
+  background-image: url("../images/camping-background-hazy.jpg");
   height: 90vh;
   background-position: center;
   background-repeat: no-repeat;
