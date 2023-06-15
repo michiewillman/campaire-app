@@ -99,6 +99,19 @@ async function getCampgrounds(lat, lng) {
   );
   const { PlacesService } = await google.maps.importLibrary("places");
   const coordinates = new google.maps.LatLng(lat, lng);
+
+  // The map, centered at searched zip
+  map = new Map(document.getElementById("map"), {
+    zoom: 10,
+    center: coordinates,
+  });
+
+  // The marker, positioned at entered zip
+  const marker = new AdvancedMarkerElement({
+    map: map,
+    position: coordinates,
+    title: zip.toString(),
+  });
 }
 
 // Sets initial map
@@ -113,13 +126,14 @@ async function initMap(lat, lng) {
   );
   const coordinates = new google.maps.LatLng(lat, lng);
 
-  // The map, centered at Portland
+  // The map, centered on Portland
   map = new Map(document.getElementById("map"), {
     zoom: 10,
     center: coordinates,
+    mapId: "3ee7328d82b483e6",
   });
 
-  // The marker, positioned at Uluru
+  // The marker, positioned at Portland
   const marker = new AdvancedMarkerElement({
     map: map,
     position: coordinates,
