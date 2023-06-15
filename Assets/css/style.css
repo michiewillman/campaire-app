@@ -1,0 +1,92 @@
+/* Global Styles - old colors for reference */
+/* :root {
+--primary: #52796F;
+--secondary: #354F52;
+--dark: #2F3E46;
+--light: #FEFAE0;
+--earth: #DDA15E;
+--tigerseye: #BC6C25;
+} */
+
+:root {
+  --primary: #687876;
+  --secondary: #486f6a;
+  --dark: #171716;
+  --light: #FCFBF2;
+  --earth: #F5A83E;
+  --tigerseye: #C45105;
+  --corners: 15px;
+}
+
+body {
+  background-color: var(--primary);
+  margin: 0;
+  padding: 0;
+}
+
+#entry-screen {
+  position: relative;
+  /* Not sure why relative path isn't working */
+  background-image: url("/Users/michiewillman/bootcamp/Project Submissions/UofO_G4_Project-01/Assets/images/camping-background-hazy.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#entry-content {
+  text-align: center;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  right: 20%;
+  background-color: var(--light);
+  border-radius: 15px;
+  padding: 60px;
+}
+
+header {
+  padding: 20px;
+  color: var(--light);
+  background-color: var(--primary);
+  border-radius: 0 0 15px 15px;
+}
+
+/* Main Content Container */
+#content-container {
+  color: var(--light);
+  padding: 20px;
+  /* background-color: var(--dark); */
+}
+
+#map {
+  min-height: 50vh;
+  width: 50vw;
+}
+
+/* Search Form */
+#col-one .search-form {
+  color: var(--dark);
+}
+
+#col-one .search-form input {
+  width: 80%;
+}
+
+/* Results Section */
+.message {
+  max-width: 600px;
+}
+
+/* Extra Resources Section */
+#resources-container {
+  padding: 20px 0;
+}
+
+.resource .content {
+  padding: 10px;
+}
+
+.resource button {
+  width: 60%;
+}
