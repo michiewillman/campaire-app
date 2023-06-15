@@ -21,7 +21,7 @@ function getCoordinates(zip) {
               
               var Latitude = data[0].lat;
               var Longitude = data[0].lon;
-              getCampgrounds(Latitude, Longitude);
+              //getCampgrounds(Latitude, Longitude);
               getAirQuality(Latitude, Longitude);
           })
       }
@@ -150,5 +150,5 @@ async function initMap(lat, lng) {
 
 // Search button Event Listener
 var searchBtn = $(".search-button");
-searchBtn.on("click", searchZipcode);
+searchBtn.on("click", getCoordinates);
 initMap(45.5152, -122.6784);
