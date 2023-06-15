@@ -1,6 +1,7 @@
 // Global variables
 var zipInput = $("#zip-input");
 var map;
+var googleMapId = "3ee7328d82b483e6";
 var zip = 97203;
 
 // function to get local storage and render last zipcode
@@ -104,6 +105,7 @@ async function getCampgrounds(lat, lng) {
   map = new Map(document.getElementById("map"), {
     zoom: 10,
     center: coordinates,
+    mapId: googleMapId,
   });
 
   // The marker, positioned at entered zip
@@ -130,7 +132,7 @@ async function initMap(lat, lng) {
   map = new Map(document.getElementById("map"), {
     zoom: 10,
     center: coordinates,
-    mapId: "3ee7328d82b483e6",
+    mapId: googleMapId,
   });
 
   // The marker, positioned at Portland
