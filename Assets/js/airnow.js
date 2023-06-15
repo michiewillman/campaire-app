@@ -9,13 +9,12 @@ function getCoordinates(zip) {
    
     fetch(coordinatesURL) 
     .then(function(response){
-        console.log(response.status)
+        
         if(response.ok) {
             response.json().then (function(data){
-                console.log(data);
+                
                 var Latitude = data[0].lat;
                 var Longitude = data[0].lon;
-                console.log(Latitude, Longitude);
                 getAirQuality(Latitude, Longitude);
             })
         }
