@@ -29,36 +29,17 @@ $(document).ready(function () {
     });
   }
 
-  async function initMap(coordinates) {
-    // The location of Uluru
-    // const position = { lat: -25.344, lng: 131.031 };
-    // Request needed libraries.
-    //@ts-ignore
-    const { Map } = await google.maps.importLibrary("maps");
-    const { PlacesService } = await google.maps.importLibrary("places");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary(
-      "marker"
-    );
-
-    // The map, centered at Uluru
-    map = new Map(document.getElementById("map"), {
-      zoom: 4,
-      center: coordinates,
-      mapId: "DEMO_MAP_ID",
-    });
-
-    fetch(airQualityUrl).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          var aqi = data.list[0].main.aqi;
-          console.log(data);
-          displayResults(aqi);
-          // save to local storage here ?
-        });
-      } else {
-        alert("Error: " + response.statusText);
-      }
-    });
+  fetch(airQualityUrl).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        var aqi = data.list[0].main.aqi;
+        console.log(data);
+        displayResults(aqi);
+        // save to local storage here ?
+      });
+    } else {
+      alert("Error: " + response.statusText);
+    }
 
     // function to get local storage and render last zipcode
 
@@ -84,7 +65,7 @@ $(document).ready(function () {
         "Try searching these closest zipcodes. They have a bit better air quality."
       );
     }
-  }
+  });
 
   // Searches the inputted Zipcode on search-button click
   function searchZipcode(event) {
@@ -109,8 +90,6 @@ $(document).ready(function () {
   // })
 
   async function initMap(coordinates) {
-    // The location of Uluru
-    // const position = { lat: -25.344, lng: 131.031 };
     // Request needed libraries.
     //@ts-ignore
     const { Map } = await google.maps.importLibrary("maps");
