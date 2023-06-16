@@ -65,11 +65,32 @@ $(document).ready(function() {
   }
 
   function displayResults(aqi, locDetails) {
-    var displayAQI = $('#current-aqi');
-    if (0 < aqi < 50) {
-        displayAQI.text("Your Air quality is " + aqi +" in " + locDetails);
-    } else if (50 <= aqi > 100) {
-        displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
+    var currentContainer = $('#current-air');
+    var resourcesContainer = $('#resources-container');
+    var displayAQI = $('#display-aqi');
+    displayAQI.text("Your Air quality is " + aqi +" in " + locDetails);
+    if (aqi < 50) { // if air quality = good
+      var positiveMessage = $('<div>');
+      positiveMessage.addClass('ui floating positive message');
+      positiveMessage.text('Pack your things, the air quality is good enough to camp!');
+      currentContainer.append(positiveMessage);
+      $('#campgrounds').removeClass('hide');
+    } else if (aqi > 50 && aqi < 150) { // if air quality = moderate
+      var moderateMessage = $('<div>');
+      moderateMessage.addClass('ui floating warning message');
+      moderateMessage.text('Air quality is acceptable for camping. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.');
+      currentContainer.append(moderateMessage);
+      $('#campgrounds').removeClass('hide');
+    } else { // if air quality = unhealthy or worse
+      var negativeMessage = $('<div>');
+      var resourceTitle = $('<h3>');
+      negativeMessage.addClass('ui floating negative message');
+      currentContainer.append(negativeMessage);
+      currentContainer.append(resourceTitle);
+      negativeMessage.text("The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.");
+      resourceTitle.text('In the meantime, please check out the great organizations below and how you can help fight air pollution.');
+      // Show extra resource links
+      // resourcesContainer.removeClass('hide');
     }
     return;
   }

@@ -73,30 +73,25 @@
 
       <!-- Current AQI results -->
       <div id="current-air">
-        <h2 id="current-aqi"></h2>
-        <p class="display-aqi"></p>
-        <div class="ui floating positive message">
-          <p><i class="check square icon"></i>Pack your things, the air quality is ____ (moderate, fair, good).</p>
-        </div>
-        <div class="ui floating negative message">
+        <h2 id="display-aqi"></h2>
+        <!-- <div class="ui floating positive message">
+          <p><i class="check square icon"></i>Pack your things, the air quality is good enough to camp!</p>
+        </div> -->
+        <!-- <div class="ui floating negative message">
           <p><i class="exclamation circle
             icon"></i>
-            The air quality around you is ____ (poor, very poor).
-            Maybe not the best time to camp.<br>Curl up with a good book and minimize your time outside.
-            <br><br>
-            In the meantime, please check out the great organizations below and how you can help fight air pollution.
+            The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.
             </p>
-        </div>
+        </div> -->
       </div>
 
-      <div id="campgrounds">
+      <div id="campgrounds" class="hide">
         <h3></h3>
         <!-- <map name=""></map>  -->
       </div>
 
       <!-- Resources to show in place of maps when air quality is too bad in chosen Zip Code -->
       <div id="resources-container" class="ui equal width stackable grid">
-
         <div class="column">      
           <!-- Resource Card #1 -->
           <div class="ui card resource">
@@ -117,7 +112,7 @@
                 </div>
               </a> 
             </div>
-        </div>
+          </div>
         </div>
         <!-- Resource Card #2 -->
         <div class="column">        
@@ -165,7 +160,6 @@
           </div>
 
         </div>
-
       </div>
 
     </div>
