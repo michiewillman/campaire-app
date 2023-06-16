@@ -17,47 +17,47 @@ function getCoordinates(zip) {
   .then(function(response){
       
       if(response.ok) {
-          response.json().then (function(data){
-              
-              var Latitude = data[0].lat;
-              var Longitude = data[0].lon;
-              console.log(data[0].lon, data[0].lat);
-              //getCampgrounds(Latitude, Longitude);
-              getAirQuality(Latitude, Longitude);
-          })
+          var json = response.json();
+          return json;
       }
-  });
+  }).then (function(data){
+              
+    var lat = data[0].lat;
+    var lng = data[0].lon;
+    var locDetails = data[0].display_name;
+    getCampgrounds(lat, lng);
+    getAirQuality(lat, lng, locDetails);
+});
 }
 
 
 // Get the air quality of the Zipcode's coordinates
-function getAirQuality(lat, lon) {
-  var  airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lon + "&key=" + iQAirAPI;
+function getAirQuality(lat, lng, locDetails) {
+  var  airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
   
   fetch(airQualityUrl)
   .then(function (response) {
       
       if(response.ok) {
           response.json().then(function (data) {
-             console.log(data)
               var aqi = data.data.current.pollution.aqius;
-              var city = data.data.city;
-              var state = data.data.state;
+              // var city = data.data.city;
+              // var state = data.data.state;
               
               
-              displayResults(aqi, city, state);
+              displayResults(aqi, locDetails);
               
           })
       }
   });
 }
 
-function displayResults(aqi, city, state) {
+function displayResults(aqi, locDetails) {
   var displayAQI = $('#current-air');
   if (0 < aqi < 50) {
-      displayAQI.text("Your Air quality is " + aqi +" in " + city + ", " + state);
+      displayAQI.text("Your Air quality is " + aqi +" in " + locDetails);
   } else if (50 <= aqi > 100) {
-      displayAQI.text("Your Air quality is " + aqi + " in " + city + ", " + state);
+      displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
   }
   return;
 }
