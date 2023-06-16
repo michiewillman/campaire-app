@@ -53,7 +53,9 @@ $(document).ready(function() {
   }
 
   function displayResults(aqi, city, state) {
-    var displayAQI = $('#current-air');
+    var currentContainer = $('#current-air');
+    var displayAQI = $('<h2>');
+    currentContainer.prepend(displayAQI);
     if (0 < aqi < 50) {
         displayAQI.text("Your Air quality is " + aqi +" in " + city + ", " + state);
     } else if (50 <= aqi > 100) {
@@ -61,13 +63,6 @@ $(document).ready(function() {
     }
     return;
   }
-      // Suggest other zipcodes to camp in ?
-  //     var otherZips = $("#nearby-zips");
-  //     otherZips.text(
-  //       "Try searching these closest zipcodes. They have a bit better air quality."
-  //     );
-  //   }
-  // }
 
   function searchZipcode(event) {
     event.preventDefault();
@@ -77,12 +72,10 @@ $(document).ready(function() {
     if (zip) {
         getCoordinates(zip);
     }
-  }
 
-    // If  Zipcode is inputted when button is clicked
-    
-      // TODO: clear the input form
-    
+    // Clear input field
+    input.val('');
+  }
 
     // TODO: function to save inputted zipcode to local storage
     // If user has nothing in local storage, show entry screen + hide results.
