@@ -25,7 +25,7 @@
           <input type="text" class="zip-input" placeholder="Enter Zip Code">
           <i class="location arrow icon"></i>
         </div>
-        <button class="ui icon button search-button">
+        <button id="search-btn-1" class="ui icon button search-button">
           <i class="search icon"></i>
         </button>
       </div>
@@ -34,33 +34,33 @@
 
   <section id="content-container" class="ui stackable grid">
       <!-- Left Sidebar sections -->
-  <div id="col-one" class="four wide column">
-    <div class="search-form ui segment">
-      <div class="form-content">
-        <label for="zip-input">Search Zip Code</label> 
-        <div class="ui action input">
-          <div class="ui left icon input">
-            <input type="text" class="zip-input" placeholder="Enter Zip Code">
-            <i class="location arrow icon"></i>
-          </div>
-          <button class="ui icon button search-button">
-            <i class="search icon"></i>
-          </button>
+    <div id="col-one" class="four wide column">
+      <div class="search-form ui segment">
+        <div class="form-content">
+          <label for="zip-input">Search Zip Code</label> 
+          <div class="ui action input">
+            <div class="ui left icon input">
+              <input type="text" class="zip-input" placeholder="Enter Zip Code">
+              <i class="location arrow icon"></i>
+            </div>
+            <button id="search-btn-2" class="ui icon button search-button">
+              <i class="search icon"></i>
+            </button>
         </div>
       </div>
     </div>
 
-    <!-- Camping area suggestions -->
-    <div id="suggested ui segment">
+    <!-- Zipcode Location Search History -->
+    <div id="history ui segment">
       <p>Not sure where to get away?</p>
       <p>Great areas to camp right now:</p>
-      <div class="suggestion">
+      <div class="previous-search">
         <img src="" alt="">
       </div>
-      <div class="suggestion">
+      <div class="previous-search">
         <img src="" alt="">
       </div>
-      <div class="suggestion">
+      <div class="previous-search">
         <img src="" alt="">
       </div>
     </div>
