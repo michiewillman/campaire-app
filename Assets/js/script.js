@@ -21,6 +21,7 @@ function getCoordinates(zip) {
               
               var Latitude = data[0].lat;
               var Longitude = data[0].lon;
+              console.log(data[0].lon, data[0].lat);
               //getCampgrounds(Latitude, Longitude);
               getAirQuality(Latitude, Longitude);
           })
