@@ -68,19 +68,13 @@ function displayResults(aqi, city, state) {
 //   }
 // }
 
-// Searches the inputted Zipcode on search-button click
+function searchZipcode(event) {
+  event.preventDefault();
+  var zip = zipInput.val();
 
-  
-  // If user has nothing in local storage, show entry screen + hide results.
-  // If user has something in local storage, hide entry screen + show results.
-
-  function searchZipcode(event) {
-    event.preventDefault();
-    var zip = zipInput.val();
-
-    if (zip) {
-        getCoordinates(zip);
-    }
+  if (zip) {
+      getCoordinates(zip);
+  }
 }
 
   // If  Zipcode is inputted when button is clicked
@@ -89,6 +83,8 @@ function displayResults(aqi, city, state) {
   
 
   // TODO: function to save inputted zipcode to local storage
+  // If user has nothing in local storage, show entry screen + hide results.
+  // If user has something in local storage, hide entry screen + show results.
 
 
 // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
@@ -150,5 +146,5 @@ async function initMap(lat, lng) {
 
 // Search button Event Listener
 var searchBtn = $(".search-button");
-searchBtn.on("click", getCoordinates);
+searchBtn.on("click", searchZipcode);
 initMap(45.5152, -122.6784);
