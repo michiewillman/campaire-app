@@ -12,9 +12,9 @@
   --primary: #687876;
   --secondary: #486f6a;
   --dark: #171716;
-  --light: #FCFBF2;
-  --earth: #F5A83E;
-  --tigerseye: #C45105;
+  --light: #fcfbf2;
+  --earth: #f5a83e;
+  --tigerseye: #c45105;
   --corners: 15px;
 }
 
@@ -43,7 +43,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
 
 label {
@@ -68,12 +68,7 @@ header {
   padding: 20px;
 }
 
-#map {
-  min-height: 50vh;
-  width: 50vw;
-}
-
-#map {
+#campgrounds {
   min-height: 50vh;
   width: 50vw;
 }
