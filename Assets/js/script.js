@@ -11,59 +11,63 @@ $(document).ready(function() {
 
 // Get coordinates for the user-inputted Zipcode
 function getCoordinates(zip) {
-  var coordinatesURL =
-    "https://us1.locationiq.com/v1/search?key=" +
-    locationAPI +
-    "&country=USA&postalcode=" +
-    zip +
-    "&format=json";
-
-  fetch(coordinatesURL).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        var Latitude = data[0].lat;
-        var Longitude = data[0].lon;
-        initMap(Latitude, Longitude, zip);
-        getAirQuality(Latitude, Longitude);
-      });
-    }
-  });
+  var coordinatesURL = "https://us1.locationiq.com/v1/search?key=" + locationAPI + "&country=USA&postalcode=" + zip + "&format=json";
+  
+ 
+  fetch(coordinatesURL) 
+  .then(function(response){
+      
+      if(response.ok) {
+          var json = response.json();
+          return json;
+      }
+  }).then (function(data){
+              
+    var lat = data[0].lat;
+    var lng = data[0].lon;
+    var locDetails = data[0].display_name;
+    //getCampgrounds(lat, lng);
+    getAirQuality(lat, lng, locDetails);
+});
 }
 
 // Get the air quality of the Zipcode's coordinates
-function getAirQuality(lat, lon) {
-  var airQualityUrl =
-    "http://api.airvisual.com/v2/nearest_city?lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&key=" +
-    iQAirAPI;
-
-  fetch(airQualityUrl).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-        var aqi = data.data.current.pollution.aqius;
-        var city = data.data.city;
-        var state = data.data.state;
-
-        displayResults(aqi, city, state);
-      });
-    }
+function getAirQuality(lat, lng, locDetails) {
+  var  airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
+  
+  fetch(airQualityUrl)
+  .then(function (response) {
+      
+      if(response.ok) {
+          response.json().then(function (data) {
+              var aqi = data.data.current.pollution.aqius;
+              // var city = data.data.city;
+              // var state = data.data.state;
+              
+              
+              displayResults(aqi, locDetails);
+              
+          })
+      }
   });
 }
 
-  function displayResults(aqi, city, state) {
-    var displayAQI = $('#current-aqi');
-
-    if (0 < aqi < 50) {
-        displayAQI.text("Your Air quality is " + aqi +" in " + city + ", " + state);
-    } else if (50 <= aqi > 100) {
-        displayAQI.text("Your Air quality is " + aqi + " in " + city + ", " + state);
-    }
-    return;
+function displayResults(aqi, locDetails) {
+  var displayAQI = $('#current-air');
+  if (0 < aqi < 50) {
+      displayAQI.text("Your Air quality is " + aqi +" in " + locDetails);
+  } else if (50 <= aqi > 100) {
+      displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
   }
+  return;
+}
+// Suggest other zipcodes to camp in ?
+//     var otherZips = $("#nearby-zips");
+//     otherZips.text(
+//       "Try searching these closest zipcodes. They have a bit better air quality."
+//     );
+//   }
+// }
 
   function searchZipcode(event) {
     event.preventDefault();
@@ -89,11 +93,12 @@ function initMap(lat, lng, zip) {
 
   var coords = new google.maps.LatLng(lat, lng);
 
+  console.log("coords: " + coords);
+
   // The map, centered at searched zip
-  map = new Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("campgrounds"), {
     zoom: 10,
-    center: coordinates,
-    mapId: googleMapId,
+    center: coords,
   });
 
   var nearbyCampgrounds = [];
@@ -129,7 +134,6 @@ function createMarker(result) {
   marker.setLabel(result.name + " ");
   marker.setClickable(true);
 }
-
 
   // Search button Event Listener
   $("#search-btn-1").on("click", searchZipcode);
