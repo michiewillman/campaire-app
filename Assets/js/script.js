@@ -90,7 +90,7 @@ $(document).ready(function() {
       negativeMessage.text("The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.");
       resourceTitle.text('In the meantime, please check out the great organizations below and how you can help fight air pollution.');
       // Show extra resource links
-      // resourcesContainer.removeClass('hide');
+      resourcesContainer.removeClass('hide');
     }
     return;
   }
