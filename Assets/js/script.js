@@ -1,5 +1,5 @@
 // Global variables
-var zipInput = $("#zip-input");
+var zipInput = $(".zip-input");
 var map;
 var googleMapId = "3ee7328d82b483e6";
 //var zip = 97203;
