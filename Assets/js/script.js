@@ -53,9 +53,8 @@ $(document).ready(function() {
   }
 
   function displayResults(aqi, city, state) {
-    var currentContainer = $('#current-air');
-    var displayAQI = $('<h2>');
-    currentContainer.prepend(displayAQI);
+    var displayAQI = $('#current-aqi');
+
     if (0 < aqi < 50) {
         displayAQI.text("Your Air quality is " + aqi +" in " + city + ", " + state);
     } else if (50 <= aqi > 100) {
