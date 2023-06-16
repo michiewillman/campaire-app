@@ -1,5 +1,5 @@
 // Global variables
-var zipInput = $("#zip-input");
+var zipInput = $(".zip-input");
 var map;
 var googleMapId = "3ee7328d82b483e6";
 //var zip = 97203;
@@ -74,17 +74,12 @@ function displayResults(aqi, city, state) {
 //   }
 // }
 
-// Searches the inputted Zipcode on search-button click
-
-// If user has nothing in local storage, show entry screen + hide results.
-// If user has something in local storage, hide entry screen + show results.
-
 function searchZipcode(event) {
   event.preventDefault();
   var zip = zipInput.val();
 
   if (zip) {
-    getCoordinates(zip);
+      getCoordinates(zip);
   }
 }
 
@@ -98,7 +93,9 @@ function searchZipcode(event) {
 
 // TODO: clear the input form
 
-// TODO: function to save inputted zipcode to local storage
+  // TODO: function to save inputted zipcode to local storage
+  // If user has nothing in local storage, show entry screen + hide results.
+  // If user has something in local storage, hide entry screen + show results.
 
 // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
 function initMap(lat, lng, zip) {
@@ -162,6 +159,5 @@ function createMarker(result) {
 
 // Search button Event Listener
 var searchBtn = $(".search-button");
-searchBtn.on("click", getCoordinates);
-
-
+searchBtn.on("click", searchZipcode);
+initMap(45.5152, -122.6784);
