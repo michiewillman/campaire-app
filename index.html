@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.2/dist/semantic.min.css"> 
-  <link rel="stylesheet" href="./Assets/css/site-variables.css">
   <link rel="stylesheet" href="./Assets/css/overrides.css">
   <link rel="stylesheet" href="./Assets/css/style.css">
   <title>Camping for Air Quality Generator</title>
@@ -20,27 +19,34 @@
     <div id="entry-content" class="search-form"> <!-- Make this modal via fomantic? -->
       <h1>Get some fresh air.</h1>
       <p>Ensure you have a great camping experience by checking your destination's air quality.<br> We can help you decide where to go.</p>
-      <label for="zip-input">Enter Zip Code</label> 
-      <div class="ui action input zip-input">
-        <input type="text" placeholder="Ex: 90210">
+      <label for="zip-input">Where to?</label> 
+      <div class="ui action input">
+        <div class="ui left icon input">
+          <input type="text" class="zip-input" placeholder="Enter Zip Code">
+          <i class="location arrow icon"></i>
+        </div>
         <button class="ui icon button search-button">
           <i class="search icon"></i>
         </button>
-          </div>
+      </div>
     </div>
   </section>
 
   <section id="content-container" class="ui stackable grid">
       <!-- Left Sidebar sections -->
   <div id="col-one" class="four wide column">
-
     <div class="search-form ui segment">
-      <label for="zip-input">Search Zip Code</label> 
-      <div class="ui action input zip-input">
-        <input type="text" placeholder="Ex: 90210">
-        <button class="ui icon button search-button">
-          <i class="search icon"></i>
-        </button>
+      <div class="form-content">
+        <label for="zip-input">Search Zip Code</label> 
+        <div class="ui action input">
+          <div class="ui left icon input">
+            <input type="text" class="zip-input" placeholder="Enter Zip Code">
+            <i class="location arrow icon"></i>
+          </div>
+          <button class="ui icon button search-button">
+            <i class="search icon"></i>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -88,104 +94,84 @@
         <!-- <map name=""></map>  -->
       </div>
 
+      <!-- Resources to show in place of maps when air quality is too bad in chosen Zip Code -->
       <div id="resources-container" class="ui equal width stackable grid">
+
+        <div class="column">      
+          <!-- Resource Card #1 -->
+          <div class="ui card resource">
+            <div class="image">
+              <img src="Assets/images/Smokey-Bear.jpg">
+            </div>
+            <div class="content">
+              <a class="header">Smokey Bear</a>
+              <div class="description">
+                See how you can do your part to help prevent wildfires.
+              </div>
+              <a href="https://smokeybear.com/">
+                <div class="ui animated button" tabindex="0">
+                  <div class="visible content">Learn More</div>
+                  <div class="hidden content">
+                    <i class="fire icon"></i>
+                  </div>
+                </div>
+              </a> 
+            </div>
+        </div>
+        </div>
+        <!-- Resource Card #2 -->
         <div class="column">        
           <div class="ui card resource">
-          <div class="image">
-            <img src="./Assets/images/Smokey_2.jpg">
-          </div>
-          <div class="content">
-            <a class="header">Smokey Bear</a>
-            <div class="description">
-              See how you can help prevent wildfires.
+            <div class="image">
+              <img src="Assets/images/Clean-Air-Fund.jpg">
             </div>
-            <a href="https://smokeybear.com/">
-              <button class="ui animated button">Learn More</button>
-            </a> 
+            <div class="content">
+              <a class="header">Clean Air Fund</a>
+              <div class="description">
+                A philanthropic initiative tackling global air pollution.
+              </div>
+              <a href="https://www.cleanairfund.org/">
+                <div class="ui animated button" tabindex="0">
+                  <div class="visible content">Learn More</div>
+                  <div class="hidden content">
+                    <i class="wind icon"></i>
+                  </div>
+                </div>
+              </a> 
+            </div>
           </div>
         </div>
-        </div>
-        <div class="column">        
+        <!-- Resource Card #3 -->
+        <div class="column">   
+
           <div class="ui card resource">
-          <div class="image">
-            <img src="./Assets/images/Clean-Air-Fund.jpg">
-          </div>
-          <div class="content">
-            <a class="header">Clean Air Fund</a>
-            <div class="description">
-              A philanthropic initiative tackling global air pollution. Get involved!
+            <div class="image">
+              <img src="Assets/images/Clean-Air-Task-Force.jpg">
             </div>
-            <a href="https://www.cleanairfund.org/">
-              <button class="ui animated button">Learn More</button>
-            </a> 
-          </div>
-        </div>
-        </div>
-        <div class="column">        
-          <div class="ui card resource">
-          <div class="image">
-            <img src="./Assets/images/adventure-1851092_1920.jpg">
-          </div>
-          <div class="content">
-            <a class="header">Smokey Bear</a>
-            <div class="description">
-              See how you can help prevent wildfires.
+            <div class="content">
+              <a class="header">Clean Air Task Force</a>
+              <div class="description">
+                Catalyzing resilient solutions to meet the climate challenge.
+              </div>
+              <a href="https://www.catf.us/">
+                <div class="ui animated button" tabindex="0">
+                  <div class="visible content">Learn More</div>
+                  <div class="hidden content">
+                    <i class="hand holding water icon"></i>
+                  </div>
+                </div>
+              </a> 
             </div>
-            <a href="https://smokeybear.com/">
-              <button class="ui animated button">Learn More</button>
-            </a> 
           </div>
+
         </div>
-        </div>
+
       </div>
 
     </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>
-    ((g) => {
-      var h,
-        a,
-        k,
-        p = "The Google Maps JavaScript API",
-        c = "google",
-        l = "importLibrary",
-        q = "__ib__",
-        m = document,
-        b = window;
-      b = b[c] || (b[c] = {});
-      var d = b.maps || (b.maps = {}),
-        r = new Set(),
-        e = new URLSearchParams(),
-        u = () =>
-          h ||
-          (h = new Promise(async (f, n) => {
-            await (a = m.createElement("script"));
-            e.set("libraries", [...r] + "");
-            for (k in g)
-              e.set(
-                k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()),
-                g[k]
-              );
-            e.set("callback", c + ".maps." + q);
-            a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-            d[q] = f;
-            a.onerror = () => (h = n(Error(p + " could not load.")));
-            a.nonce = m.querySelector("script[nonce]")?.nonce || "";
-            m.head.append(a);
-          }));
-      d[l]
-        ? console.warn(p + " only loads once. Ignoring:", g)
-        : (d[l] = (f, ...n) =>
-            r.add(f) && u().then(() => d[l](f, ...n)));
-    })({
-      key: "AIzaSyBbUsG9h8clR86p6Hqs5QtjViuXYG3eE04",
-      v: "weekly",
-      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-      // Add other bootstrap parameters as needed, using camel case.
-    });
-  </script>
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbUsG9h8clR86p6Hqs5QtjViuXYG3eE04&libraries=places&callback=initMap"></script>
   <script src="./Assets/js/script.js"></script>
 
 </body>
