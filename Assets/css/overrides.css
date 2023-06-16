@@ -8,6 +8,10 @@
   --corners: 15px;
 }
 
+.ui.message {
+  font-size: 16px;
+}
+
 .ui.button {
   color: var(--light);
   background: var(--tigerseye);
@@ -29,3 +33,4 @@
 .ui .card {
   border-radius: var(--corners);
 } */
+

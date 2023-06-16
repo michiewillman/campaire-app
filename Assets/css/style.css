@@ -25,28 +25,38 @@ body {
 }
 
 #entry-screen {
-  position: relative;
   /* Not sure why relative path isn't working */
   background-image: url("../images/camping-background-hazy.jpg");
-  height: 100vh;
+  height: 90vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 }
 
 #entry-content {
   text-align: center;
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  right: 20%;
+  max-width: 450px;
   background-color: var(--light);
   border-radius: 15px;
-  padding: 60px;
+  padding: 5vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+label {
+  padding: 0 10px 0 0;
+}
+
+.zip-input {
+  margin: 10px 0 0 0;
 }
 
 header {
   padding: 20px;
+  height: 10vh;
   color: var(--light);
   background-color: var(--primary);
   border-radius: 0 0 15px 15px;
@@ -56,7 +66,11 @@ header {
 #content-container {
   color: var(--light);
   padding: 20px;
-  /* background-color: var(--dark); */
+}
+
+#map {
+  min-height: 50vh;
+  width: 50vw;
 }
 
 #map {
@@ -67,10 +81,12 @@ header {
 /* Search Form */
 #col-one .search-form {
   color: var(--dark);
+  display: flex;
+  justify-content: center;
 }
 
 #col-one .search-form input {
-  width: 80%;
+  width: 90%;
 }
 
 /* Results Section */
@@ -81,12 +97,13 @@ header {
 /* Extra Resources Section */
 #resources-container {
   padding: 20px 0;
+  max-width: 800px;
 }
 
-.resource .content {
-  padding: 10px;
+.resource {
+  min-height: 800px;
 }
 
-.resource button {
-  width: 60%;
+.r-button {
+  margin: 20px 0 0 0;
 }
