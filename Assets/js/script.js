@@ -24,7 +24,7 @@ function getCoordinates(zip) {
     var lat = data[0].lat;
     var lng = data[0].lon;
     var locDetails = data[0].display_name;
-    getCampgrounds(lat, lng);
+    //getCampgrounds(lat, lng);
     getAirQuality(lat, lng, locDetails);
 });
 }
