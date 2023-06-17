@@ -1,11 +1,20 @@
 // Global variables
 var zipInput = $(".zip-input");
 var map;
-var service = new google.maps.places.PlacesService(map);
 var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
 var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
 
 // function to get local storage & render last 3-4 zipcodes
+
+// Function to get the user's zip code input
+function searchZipcode(event) {
+  event.preventDefault();
+  var zip = zipInput.val();
+
+  if (zip) {
+    getCoordinates(zip);
+  }
+}
 
 // Get coordinates for the user-inputted Zipcode
 function getCoordinates(zip) {
@@ -73,15 +82,6 @@ function displayResults(aqi, city, state) {
 //   }
 // }
 
-function searchZipcode(event) {
-  event.preventDefault();
-  var zip = zipInput.val();
-
-  if (zip) {
-    getCoordinates(zip);
-  }
-}
-
 // If  Zipcode is inputted when button is clicked
 
 // TODO: clear the input form
@@ -98,18 +98,15 @@ function searchZipcode(event) {
 
 // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
 function initMap(lat, lng, zip) {
-  console.log("lat: " + lat);
-  console.log("lng: " + lng);
-
   var coords = new google.maps.LatLng(lat, lng);
-
-  console.log("coords: " + coords);
 
   // The map, centered at searched zip
   map = new google.maps.Map(document.getElementById("campgrounds"), {
     zoom: 10,
     center: coords,
   });
+
+  var service = new google.maps.places.PlacesService(map);
 
   var nearbyCampgrounds = [];
 
@@ -120,11 +117,9 @@ function initMap(lat, lng, zip) {
       type: ["campground"],
     },
     (results, status) => {
-      console.log("results: " + results);
-
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-          console.log(results[i]);
+          // console.log(results[i]);
           nearbyCampgrounds.push(results[i]);
           createMarker(results[i]);
         }
