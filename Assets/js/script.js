@@ -114,6 +114,7 @@ $(document).ready(function () {
       center: coords,
     });
 
+    var service = new google.maps.places.PlacesService(map);
     var nearbyCampgrounds = [];
 
     service.nearbySearch(
