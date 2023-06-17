@@ -2,7 +2,6 @@ $(document).ready(function () {
 
   // Global variables
   var map;
-  var radius = 15000;
   var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
   var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
 
@@ -108,6 +107,7 @@ $(document).ready(function () {
   // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
   function initMap(lat, lng, zip) {
     var coords = new google.maps.LatLng(lat, lng);
+    var radius = 15000;
 
     // The map, centered at searched zip
     map = new google.maps.Map(document.getElementById("campgrounds"), {
