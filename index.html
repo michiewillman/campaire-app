@@ -13,7 +13,7 @@
 
 <body>
   <header>
-    <h1>App Title Here</h1>
+    <h1>CampAire</h1>
   </header>
 
   <!-- This will be a Fomantic modal component -->
@@ -27,7 +27,7 @@
           <input type="text" class="zip-input" placeholder="Enter Zip Code">
           <i class="location arrow icon"></i>
         </div>
-        <button class="ui icon button search-button">
+        <button id="search-btn-1" class="ui icon button search-button">
           <i class="search icon"></i>
         </button>
       </div>
@@ -35,37 +35,37 @@
   </section>
 
   <section id="content-container" class="ui stackable grid">
-    <!-- Left Sidebar sections -->
+      <!-- Left Sidebar sections -->
     <div id="col-one" class="four wide column">
       <div class="search-form ui segment">
         <div class="form-content">
-          <label for="zip-input">Search Zip Code</label>
+          <label for="zip-input">Search Zip Code</label> 
           <div class="ui action input">
             <div class="ui left icon input">
               <input type="text" class="zip-input" placeholder="Enter Zip Code">
               <i class="location arrow icon"></i>
             </div>
-            <button class="ui icon button search-button">
+            <button id="search-btn-2" class="ui icon button search-button">
               <i class="search icon"></i>
             </button>
-          </div>
         </div>
       </div>
+    </div>
 
-      <!-- Camping area suggestions -->
-      <div id="suggested ui segment">
-        <p>Not sure where to get away?</p>
-        <p>Great areas to camp right now:</p>
-        <div class="suggestion">
-          <img src="" alt="">
-        </div>
-        <div class="suggestion">
-          <img src="" alt="">
-        </div>
-        <div class="suggestion">
-          <img src="" alt="">
-        </div>
+    <!-- Zipcode Location Search History -->
+    <div id="history ui segment">
+      <p>Not sure where to get away?</p>
+      <p>Great areas to camp right now:</p>
+      <div class="previous-search">
+        <img src="" alt="">
       </div>
+      <div class="previous-search">
+        <img src="" alt="">
+      </div>
+      <div class="previous-search">
+        <img src="" alt="">
+      </div>
+    </div>
 
     </div>
 
@@ -73,33 +73,29 @@
     <div id="col-two" class="twelve wide column">
       <div id="search-results" class="hidden">
 
-        <!-- Current AQI results -->
-        <div id="current-air">
-          <h2>Current Air Quality in ____ is GOOD!</h2> <!-- Add this content dynamically-->
-          <p class="display-aqi"></p>
-          <div class="ui floating positive message">
-            <p><i class="check square icon"></i>Pack your things, the air quality is ____ (moderate, fair, good).</p>
-          </div>
-          <div class="ui floating negative message">
-            <p><i class="exclamation circle
+      <!-- Current AQI results -->
+      <div id="current-air">
+        <h2 id="display-aqi"></h2>
+        <!-- <div class="ui floating positive message">
+          <p><i class="check square icon"></i>Pack your things, the air quality is good enough to camp!</p>
+        </div> -->
+        <!-- <div class="ui floating negative message">
+          <p><i class="exclamation circle
             icon"></i>
-              The air quality around you is ____ (poor, very poor).
-              Maybe not the best time to camp.<br>Curl up with a good book and minimize your time outside.
-              <br><br>
-              In the meantime, please check out the great organizations below and how you can help fight air pollution.
+            The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.
             </p>
-          </div>
-        </div>
+        </div> -->
+      </div>
 
-        <div id="campgrounds">
-          <h3></h3>
-          <!-- <map name=""></map>  -->
-        </div>
+      <div id="campgrounds" class="hide">
+        <h3></h3>
+        <!-- <map name=""></map>  -->
+      </div>
 
-        <!-- Resources to show in place of maps when air quality is too bad in chosen Zip Code -->
-        <div id="resources-container" class="ui equal width stackable grid">
-
-          <div class="column">
+      <!-- Resources to show in place of maps when air quality is too bad in chosen Zip Code -->
+      <div id="resources-container" class="hide">
+        <div class="ui equal width stackable grid">
+          <div class="column">      
             <!-- Resource Card #1 -->
             <div class="ui card resource">
               <div class="image">
@@ -117,12 +113,12 @@
                       <i class="fire icon"></i>
                     </div>
                   </div>
-                </a>
+                </a> 
               </div>
             </div>
           </div>
           <!-- Resource Card #2 -->
-          <div class="column">
+          <div class="column">        
             <div class="ui card resource">
               <div class="image">
                 <img src="Assets/images/Clean-Air-Fund.jpg">
@@ -139,13 +135,13 @@
                       <i class="wind icon"></i>
                     </div>
                   </div>
-                </a>
+                </a> 
               </div>
             </div>
           </div>
           <!-- Resource Card #3 -->
-          <div class="column">
-
+          <div class="column">   
+  
             <div class="ui card resource">
               <div class="image">
                 <img src="Assets/images/Clean-Air-Task-Force.jpg">
@@ -162,13 +158,13 @@
                       <i class="hand holding water icon"></i>
                     </div>
                   </div>
-                </a>
+                </a> 
               </div>
             </div>
-
+  
           </div>
-
         </div>
+      </div>
 
       </div>
 
