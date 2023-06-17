@@ -2,6 +2,7 @@ $(document).ready(function () {
 
   // Global variables
   var map;
+  var radius = 15000;
   var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
   var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
 
@@ -120,7 +121,7 @@ $(document).ready(function () {
     service.nearbySearch(
       {
         location: coords,
-        radius: 50000,
+        radius: radius,
         type: [ "campground" ],
       },
       (results, status) => {
