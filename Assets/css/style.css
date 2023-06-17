@@ -63,6 +63,11 @@ header {
 }
 
 /* Main Content Container */
+.hide {
+  display: none;
+}
+
+
 #content-container {
   color: var(--light);
   padding: 20px;
