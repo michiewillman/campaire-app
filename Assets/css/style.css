@@ -76,6 +76,7 @@ header {
 #campgrounds {
   min-height: 50vh;
   width: 50vw;
+  color: var(--dark);
 }
 
 /* Search Form */

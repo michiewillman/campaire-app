@@ -127,25 +127,55 @@ $(document).ready(function () {
       (results, status) => {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
-            // console.log(results[i]);
+            console.log(results[ i ]);
             nearbyCampgrounds.push(results[ i ]);
-            createMarker(results[ i ]);
+            createMarker(results[ i ], service);
           }
         }
       }
     );
   }
 
-  function createMarker(result) {
+  function createMarker(result, service) {
     console.log("result: " + result);
+    var sizeScale = 20;
 
     var marker = new google.maps.Marker({
       map: map,
       position: result.geometry.location,
+      icon: { url: result.icon, scaledSize: new google.maps.Size(sizeScale, sizeScale) },
+      // label: result.name,
+      clickable: true,
     });
 
-    marker.setLabel(result.name + " ");
-    marker.setClickable(true);
+    var fullAddress = "unchanged";
+    var placeUrl = "unchanged";
+
+    service.getDetails({
+      placeId: result.place_id,
+      fields: [
+        "formatted_address",
+        "url"
+      ],
+    }, (results) => {
+      placeUrl = results.url;
+      fullAddress = results.formatted_address;
+
+
+      console.log("placeUrl: " + placeUrl);
+      console.log("fullAddress: " + fullAddress);
+
+      var infoWindow = new google.maps.InfoWindow({
+        content: "<a href='" + placeUrl + "' target=blank>" + result.name + "</a><br>" + result.vicinity,
+
+      });
+      // Add a click event listener to the marker
+      marker.addListener('click', function () {
+        // Open the info window when the marker is clicked
+        infoWindow.open(map, marker);
+      });
+    });
+
   }
 
   // Search button Event Listener
