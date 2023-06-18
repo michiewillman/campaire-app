@@ -127,7 +127,7 @@ $(document).ready(function () {
       (results, status) => {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
-            console.log(results[ i ]);
+            // console.log(results[ i ]);
             nearbyCampgrounds.push(results[ i ]);
             createMarker(results[ i ], service);
           }
@@ -137,7 +137,7 @@ $(document).ready(function () {
   }
 
   function createMarker(result, service) {
-    console.log("result: " + result);
+    // console.log("result: " + result);
     var sizeScale = 20;
 
     var marker = new google.maps.Marker({
@@ -162,8 +162,8 @@ $(document).ready(function () {
       fullAddress = results.formatted_address;
 
 
-      console.log("placeUrl: " + placeUrl);
-      console.log("fullAddress: " + fullAddress);
+      // console.log("placeUrl: " + placeUrl);
+      // console.log("fullAddress: " + fullAddress);
 
       var infoWindow = new google.maps.InfoWindow({
         content: "<a href='" + placeUrl + "' target=blank>" + result.name + "</a><br>" + result.vicinity,
