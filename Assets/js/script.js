@@ -34,8 +34,10 @@ $(document).ready(function () {
         response.json().then(function (data) {
           var Latitude = data[ 0 ].lat;
           var Longitude = data[ 0 ].lon;
+          var locDetails = data[ 0 ].display_name;
+
           initMap(Latitude, Longitude, zip);
-          getAirQuality(Latitude, Longitude);
+          getAirQuality(Latitude, Longitude, locDetails);
         });
       }
     });
