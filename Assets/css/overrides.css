@@ -1,13 +1,15 @@
+/* Global styles */
 :root {
   --primary: #687876;
-  --secondary: #295880;
+  --secondary: #486f6a;
   --dark: #171716;
-  --light: #FCFBF2;
-  --earth: #F5A83E;
-  --tigerseye: #C45105;
+  --light: #fcfbf2;
+  --earth: #f5a83e;
+  --tigerseye: #c45105;
   --corners: 15px;
 }
 
+/* Overrides for Fomantic UI default settings */
 .ui.message {
   font-size: 16px;
 }
@@ -21,16 +23,3 @@
   color: var(--light);
   background: var(--earth);
 }
-
-/* .ui.floating.positive.message {
-  border-radius: var(--corners);
-}
-
-.ui.floating.negative.message {
-  border-radius: var(--corners);
-}
-
-.ui .card {
-  border-radius: var(--corners);
-} */
-
