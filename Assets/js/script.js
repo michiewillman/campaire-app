@@ -5,6 +5,7 @@ $(document).ready(function () {
   var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
   var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
 
+
   // function to get local storage & render last 3-4 zipcodes
 
   function searchZipcode(event) {
@@ -63,23 +64,34 @@ $(document).ready(function () {
   }
 
   function displayResults(aqi, locDetails) {
+    var searchResults = $('#search-results');
     var currentContainer = $('#current-air');
     var resourcesContainer = $('#resources-container');
+    var disclaimer = $('<p>');
+    var campgroundContainer = $('#campgrounds');
+    disclaimer.text("Please note: Map will only display camping within 50 kilometers.");
     var displayAQI = $('#display-aqi');
     displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
+
     if (aqi < 50) { // if air quality = good
       var positiveMessage = $('<div>');
       positiveMessage.addClass('ui floating positive message');
       positiveMessage.text('Pack your things, the air quality is good enough to camp!');
       currentContainer.append(positiveMessage);
-      $('#campgrounds').removeClass('hide');
-    } else if (aqi > 50 && aqi < 150) { // if air quality = moderate
+      campgroundContainer.removeClass('hide');
+      // Add maps disclaimer
+      searchResults.append(disclaimer);
+    } 
+      else if (aqi > 50 && aqi < 150) { // if air quality = moderate
       var moderateMessage = $('<div>');
       moderateMessage.addClass('ui floating warning message');
       moderateMessage.text('Air quality is acceptable for camping. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.');
       currentContainer.append(moderateMessage);
-      $('#campgrounds').removeClass('hide');
-    } else { // if air quality = unhealthy or worse
+      campgroundContainer.removeClass('hide');
+      // Add maps disclaimer
+      searchResults.append(disclaimer);
+    } 
+      else { // if air quality = unhealthy or worse
       var negativeMessage = $('<div>');
       var resourceTitle = $('<h3>');
       negativeMessage.addClass('ui floating negative message');
@@ -87,9 +99,11 @@ $(document).ready(function () {
       currentContainer.append(resourceTitle);
       negativeMessage.text("The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.");
       resourceTitle.text('In the meantime, please check out the great organizations below and how you can help fight air pollution.');
+
       // Show extra resource links
       resourcesContainer.removeClass('hide');
     }
+
     return;
   }
   // Suggest other zipcodes to camp in ?
