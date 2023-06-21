@@ -61,7 +61,7 @@ The following image shows the web application's appearance and functionality:
 
 ## Deployment
 
-[Click here to view the deployed application.]()
+[Click here to view the deployed application.](https://michiewillman.github.io/UofO_G4_Project-01/)
 
 [Click here to view the code repository.](https://github.com/michiewillman/UofO_G4_Project-01)
 
