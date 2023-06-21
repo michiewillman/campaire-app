@@ -94,7 +94,6 @@ $(document).ready(function () {
       // Add negative message styling 
       resultMessage.addClass('ui floating negative message');
       resultMessage.text("The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.");
-      currentContainer.append(resourceTitle);
       // Show extra resource links
       resourcesContainer.removeClass('hide');
     }
