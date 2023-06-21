@@ -91,6 +91,6 @@ header {
   min-height: 800px;
 }
 
-.r-button {
-  margin: 20px 0 0 0;
+.resource .button {
+  margin-top: 20px;
 }
