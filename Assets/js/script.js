@@ -5,9 +5,6 @@ $(document).ready(function () {
   var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
   var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
 
-
-  // function to get local storage & render last 3-4 zipcodes
-
   function searchZipcode(event) {
     event.preventDefault();
     var input = $(this).closest('.search-form').find('.zip-input');
@@ -35,8 +32,10 @@ $(document).ready(function () {
         response.json().then(function (data) {
           var Latitude = data[ 0 ].lat;
           var Longitude = data[ 0 ].lon;
+          var locDetails = data[ 0 ].display_name;
+
           initMap(Latitude, Longitude, zip);
-          getAirQuality(Latitude, Longitude);
+          getAirQuality(Latitude, Longitude, locDetails);
         });
       }
     });
@@ -67,16 +66,21 @@ $(document).ready(function () {
     var searchResults = $('#search-results');
     var currentContainer = $('#current-air');
     var resourcesContainer = $('#resources-container');
-    var disclaimer = $('<p>');
     var campgroundContainer = $('#campgrounds');
-    disclaimer.text("Please note: Map will only display camping within 50 kilometers.");
     var displayAQI = $('#display-aqi');
     displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
-
+    
     var resultMessage = $('#result-msg');
+    resultMessage.removeClass();
+    campgroundContainer.removeClass();
+    resourcesContainer.removeClass();
+    
+    var disclaimer = $('#disclaimer');
+    disclaimer.text("Please note: Map will only display camping within 50 kilometers.");
 
     if (aqi < 50) { // if air quality = good
-      // resourcesContainer.addClass('hide');
+      resourcesContainer.addClass('hide');
+      // Add positive message styling 
       resultMessage.addClass('ui floating positive message');
       resultMessage.text('Pack your things, the air quality is good enough to camp!');
       campgroundContainer.removeClass('hide');
@@ -84,7 +88,8 @@ $(document).ready(function () {
       searchResults.append(disclaimer);
     } 
       else if (aqi > 50 && aqi < 150) { // if air quality = moderate
-        // resourcesContainer.addClass('hide');
+      resourcesContainer.addClass('hide');
+      // Add warning message styling 
       resultMessage.addClass('ui floating warning message');
       resultMessage.text('Air quality is acceptable for camping. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.');
       campgroundContainer.removeClass('hide');
@@ -92,26 +97,17 @@ $(document).ready(function () {
       searchResults.append(disclaimer);
     } 
       else { // if air quality = unhealthy or worse
-      // campgroundContainer.addClass('hide');
-      var resourceTitle = $('<h3>');
+      campgroundContainer.addClass('hide');
+      // Add negative message styling 
       resultMessage.addClass('ui floating negative message');
       resultMessage.text("The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.");
       currentContainer.append(resourceTitle);
-      resourceTitle.text('In the meantime, please check out the great organizations below and how you can help fight air pollution.');
-
       // Show extra resource links
       resourcesContainer.removeClass('hide');
     }
-
+  
     return;
   }
-  // Suggest other zipcodes to camp in ?
-  //     var otherZips = $("#nearby-zips");
-  //     otherZips.text(
-  //       "Try searching these closest zipcodes. They have a bit better air quality."
-  //     );
-  //   }
-  // }
 
   // TODO: function to save inputted zipcode to local storage
   // If user has nothing in local storage, show entry screen + hide results.
