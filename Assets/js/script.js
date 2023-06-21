@@ -1,151 +1,187 @@
-// Global variables
-var zipInput = $(".zip-input");
-var map;
-var service = new google.maps.places.PlacesService(map);
-var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
-var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
+$(document).ready(function () {
 
-// function to get local storage & render last 3-4 zipcodes
+  // Global variables
+  var map;
+  var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
+  var iQAirAPI = "3ac59854-8742-4b4c-b4f1-4ea76e8f0301";
 
-// Get coordinates for the user-inputted Zipcode
-function getCoordinates(zip) {
-  var coordinatesURL = "https://us1.locationiq.com/v1/search?key=" + locationAPI + "&country=USA&postalcode=" + zip + "&format=json";
-  
- 
-  fetch(coordinatesURL) 
-  .then(function(response){
-      
-      if(response.ok) {
-          var json = response.json();
-          return json;
+  function searchZipcode(event) {
+    event.preventDefault();
+    var input = $(this).closest('.search-form').find('.zip-input');
+    var zip = input.val();
+
+    if (zip) {
+      getCoordinates(zip);
+    }
+
+    // Clear input field
+    input.val('');
+  }
+
+  // Get coordinates for the user-inputted Zipcode
+  function getCoordinates(zip) {
+    var coordinatesURL =
+      "https://us1.locationiq.com/v1/search?key=" +
+      locationAPI +
+      "&country=USA&postalcode=" +
+      zip +
+      "&format=json";
+
+    fetch(coordinatesURL).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (data) {
+          var Latitude = data[ 0 ].lat;
+          var Longitude = data[ 0 ].lon;
+          var locDetails = data[ 0 ].display_name;
+
+          initMap(Latitude, Longitude, zip);
+          getAirQuality(Latitude, Longitude, locDetails);
+        });
       }
-  }).then (function(data){
-              
-    var lat = data[0].lat;
-    var lng = data[0].lon;
-    var locDetails = data[0].display_name;
-    //getCampgrounds(lat, lng);
-    getAirQuality(lat, lng, locDetails);
-});
-}
+    });
+  }
 
-// Get the air quality of the Zipcode's coordinates
-function getAirQuality(lat, lng, locDetails) {
-  var  airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
-  
-  fetch(airQualityUrl)
-  .then(function (response) {
-      
-      if(response.ok) {
+  // Get the air quality of the Zipcode's coordinates
+  function getAirQuality(lat, lng, locDetails) {
+    var airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
+
+    fetch(airQualityUrl)
+      .then(function (response) {
+
+        if (response.ok) {
           response.json().then(function (data) {
-              var aqi = data.data.current.pollution.aqius;
-              // var city = data.data.city;
-              // var state = data.data.state;
-              
-              
-              displayResults(aqi, locDetails);
-              
+            var aqi = data.data.current.pollution.aqius;
+            // var city = data.data.city;
+            // var state = data.data.state;
+
+
+            displayResults(aqi, locDetails);
+
           })
-      }
-  });
-}
-
-function displayResults(aqi, locDetails) {
-  var displayAQI = $('#current-air');
-  if (0 < aqi < 50) {
-      displayAQI.text("Your Air quality is " + aqi +" in " + locDetails);
-  } else if (50 <= aqi > 100) {
-      displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
+        }
+      });
   }
-  return;
-}
-// Suggest other zipcodes to camp in ?
-//     var otherZips = $("#nearby-zips");
-//     otherZips.text(
-//       "Try searching these closest zipcodes. They have a bit better air quality."
-//     );
-//   }
-// }
 
-function searchZipcode(event) {
-  event.preventDefault();
-  var zip = zipInput.val();
+  function displayResults(aqi, locDetails) {
+    var currentContainer = $('#current-air');
+    var resourcesContainer = $('#resources-container');
+    var campContainer = $('#camp-results');
 
-  if (zip) {
-    getCoordinates(zip);
+    var displayAQI = $('#display-aqi');
+    displayAQI.text("The Air quality is " + aqi + " in " + locDetails);
+    
+    var resultMessage = $('#result-msg');
+    resultMessage.removeClass();
+    campContainer.removeClass();
+    resourcesContainer.removeClass();
+    
+    if (aqi < 50) { // if air quality = good
+      resourcesContainer.addClass('hide');
+      // Add positive message styling 
+      resultMessage.addClass('ui floating positive message');
+      resultMessage.text('Pack your things, the air quality is good enough to camp!');
+      campContainer.removeClass('hide');
+    } 
+      else if (aqi > 50 && aqi < 150) { // if air quality = moderate
+      resourcesContainer.addClass('hide');
+      // Add warning message styling 
+      resultMessage.addClass('ui floating warning message');
+      resultMessage.text('Air quality is acceptable for camping. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.');
+      campContainer.removeClass('hide');
+    } 
+      else { // if air quality = unhealthy or worse
+      campContainer.addClass('hide');
+      // Add negative message styling 
+      resultMessage.addClass('ui floating negative message');
+      resultMessage.text("The air quality around you is unhealthy for most. Maybe not the best time to camp. Curl up with a good book and minimize your time outside.");
+      // Show extra resource links
+      resourcesContainer.removeClass('hide');
+    }
+  
+    return;
   }
-}
 
-// If  Zipcode is inputted when button is clicked
+  // TODO: function to save inputted zipcode to local storage
+  // If user has nothing in local storage, show entry screen + hide results.
+  // If user has something in local storage, hide entry screen + show results.
 
-// TODO: clear the input form
+  // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
+  function initMap(lat, lng, zip) {
+    var coords = new google.maps.LatLng(lat, lng);
+    var radius = 15000;
 
-// TODO: function to save inputted zipcode to local storage
+    // The map, centered at searched zip
+    map = new google.maps.Map(document.getElementById("campgrounds"), {
+      zoom: 10,
+      center: coords,
+    });
 
-// If  Zipcode is inputted when button is clicked
+    var service = new google.maps.places.PlacesService(map);
+    var nearbyCampgrounds = [];
 
-// TODO: clear the input form
-
-// TODO: function to save inputted zipcode to local storage
-// If user has nothing in local storage, show entry screen + hide results.
-// If user has something in local storage, hide entry screen + show results.
-
-// function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
-function initMap(lat, lng, zip) {
-  console.log("lat: " + lat);
-  console.log("lng: " + lng);
-
-  var coords = new google.maps.LatLng(lat, lng);
-
-  console.log("coords: " + coords);
-
-  // The map, centered at searched zip
-  map = new google.maps.Map(document.getElementById("campgrounds"), {
-    zoom: 10,
-    center: coords,
-  });
-
-  var nearbyCampgrounds = [];
-
-  service.nearbySearch(
-    {
-      location: coords,
-      radius: 50000,
-      type: ["campground"],
-    },
-    (results, status) => {
-      console.log("results: " + results);
-
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          console.log(results[i]);
-          nearbyCampgrounds.push(results[i]);
-          createMarker(results[i]);
+    service.nearbySearch(
+      {
+        location: coords,
+        radius: radius,
+        type: [ "campground" ],
+      },
+      (results, status) => {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            // console.log(results[ i ]);
+            nearbyCampgrounds.push(results[ i ]);
+            createMarker(results[ i ], service);
+          }
         }
       }
-    }
-  );
-}
+    );
+  }
 
-function createMarker(result) {
-  console.log("result: " + result);
+  function createMarker(result, service) {
+    // console.log("result: " + result);
+    var sizeScale = 20;
 
-  var marker = new google.maps.Marker({
-    map: map,
-    position: result.geometry.location,
-  });
+    var marker = new google.maps.Marker({
+      map: map,
+      position: result.geometry.location,
+      icon: { url: result.icon, scaledSize: new google.maps.Size(sizeScale, sizeScale) },
+      // label: result.name,
+      clickable: true,
+    });
 
-  marker.setLabel(result.name + " ");
-  marker.setClickable(true);
-}
+    var fullAddress = "unchanged";
+    var placeUrl = "unchanged";
 
-// if (airQuality is Good || Fair || Moderate) {
-//   then we run get campgrounds from Google maps
-// } else if (airQuality is Poor or Very Poor {
-//   then we display a message to not go camping
-// })
+    service.getDetails({
+      placeId: result.place_id,
+      fields: [
+        "formatted_address",
+        "url"
+      ],
+    }, (results) => {
+      placeUrl = results.url;
+      fullAddress = results.formatted_address;
 
-// Search button Event Listener
-var searchBtn = $(".search-button");
-searchBtn.on("click", searchZipcode);
-initMap(45.5152, -122.6784, 97203);
+
+      // console.log("placeUrl: " + placeUrl);
+      // console.log("fullAddress: " + fullAddress);
+
+      var infoWindow = new google.maps.InfoWindow({
+        content: "<a href='" + placeUrl + "' target=blank>" + result.name + "</a><br>" + result.vicinity,
+
+      });
+      // Add a click event listener to the marker
+      marker.addListener('click', function () {
+        // Open the info window when the marker is clicked
+        infoWindow.open(map, marker);
+      });
+    });
+
+  }
+
+  // Search button Event Listener
+  $("#search-btn-1").on("click", searchZipcode);
+  $("#search-btn-2").on("click", searchZipcode);
+  initMap(45.5152, -122.6784, 97203);
+
+});
