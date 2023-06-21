@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-$(document).ready(function () {
-
   // Global variables
   var map;
   var locationAPI = "pk.89ed628237a7d3a065d576b871965ac0";
@@ -12,12 +10,9 @@ $(document).ready(function () {
     var input = $(this).closest('.search-form').find('.zip-input');
     var zip = input.val();
 
-
     if (zip) {
       getCoordinates(zip);
-      getCoordinates(zip);
     }
-
 
     // Clear input field
     input.val('');
@@ -44,31 +39,10 @@ $(document).ready(function () {
         });
       }
     });
-    var coordinatesURL =
-      "https://us1.locationiq.com/v1/search?key=" +
-      locationAPI +
-      "&country=USA&postalcode=" +
-      zip +
-      "&format=json";
-
-    fetch(coordinatesURL).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          var Latitude = data[ 0 ].lat;
-          var Longitude = data[ 0 ].lon;
-          var locDetails = data[ 0 ].display_name;
-
-          initMap(Latitude, Longitude, zip);
-          getAirQuality(Latitude, Longitude, locDetails);
-        });
-      }
-    });
   }
 
   // Get the air quality of the Zipcode's coordinates
   function getAirQuality(lat, lng, locDetails) {
-    var airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
-
     var airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
 
     fetch(airQualityUrl)
@@ -84,20 +58,7 @@ $(document).ready(function () {
             displayResults(aqi, locDetails);
 
           })
-      .then(function (response) {
-
-        if (response.ok) {
-          response.json().then(function (data) {
-            var aqi = data.data.current.pollution.aqius;
-            // var city = data.data.city;
-            // var state = data.data.state;
-
-
-            displayResults(aqi, locDetails);
-
-          })
         }
-      });
       });
   }
 
@@ -107,7 +68,7 @@ $(document).ready(function () {
     var campContainer = $('#camp-results');
 
     var displayAQI = $('#display-aqi');
-    displayAQI.text("Your Air quality is " + aqi + " in " + locDetails);
+    displayAQI.text("The Air quality is " + aqi + " in " + locDetails);
     
     var resultMessage = $('#result-msg');
     resultMessage.removeClass();
