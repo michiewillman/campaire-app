@@ -43,7 +43,7 @@ $(document).ready(function () {
 
   // Get the air quality of the Zipcode's coordinates
   function getAirQuality(lat, lng, locDetails) {
-    var airQualityUrl = "http://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
+    var airQualityUrl = "https://api.airvisual.com/v2/nearest_city?lat=" + lat + "&lon=" + lng + "&key=" + iQAirAPI;
 
     fetch(airQualityUrl)
       .then(function (response) {
