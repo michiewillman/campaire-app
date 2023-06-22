@@ -103,38 +103,47 @@ $(document).ready(function () {
   }
 
   function aqiLocationHistory(aqi, locDetails) {
-    var history1 = $('.previous-search');
+    var historyContainer = $('.previous-search');
     var aqiHistory = JSON.parse(localStorage.getItem("ah"));
     var locHistory = JSON.parse(localStorage.getItem("lh"));
-      if (!aqiHistory, !locHistory) {
-        aqiHistory = [];
-        locHistory = [];
-      }
-      if (aqi, locDetails) {
-        if (aqiHistory.length < 3 && locHistory.length < 3) {
-          aqiHistory.unshift(aqi);
-          locHistory.unshift(locDetails);
-        } else {
-          aqiHistory.pop();
-          locHistory.pop();
-          aqiHistory.unshift(aqi);
-          locHistory.unshift(locDetails);
-        }
-        localStorage.setItem("ah", JSON.stringify(aqiHistory));
-        localStorage.setItem("lh", JSON.stringify(locHistory));
-      }
-      $.each(aqiHistory, function() {
+  
+    if (!aqiHistory || !locHistory) {
+      aqiHistory = [];
+      locHistory = [];
+    }
+  
+    if (aqi && locDetails) {
+      // Add the latest search to the history
+      aqiHistory.unshift(aqi);
+      locHistory.unshift(locDetails);
+  
+      // Trim the history to a maximum of 5 entries
+      aqiHistory = aqiHistory.slice(0, 5);
+      locHistory = locHistory.slice(0, 5);
+  
+      localStorage.setItem("ah", JSON.stringify(aqiHistory));
+      localStorage.setItem("lh", JSON.stringify(locHistory));
+  
+      // Remove existing buttons from the history container
+      historyContainer.empty();
+  
+      // Create buttons for the history entries
+      for (var i = 0; i < aqiHistory.length; i++) {
         var locButton = $("<button>", {
-          text: "AQI: " + this + " in " + locDetails,
+          text: "AQI: " + aqiHistory[i] + " in " + locHistory[i],
           class: "history-button",
           click: function () {
-            displayResults(aqiHistory, locHistory);
+            var index = $(this).index();
+            displayResults(aqiHistory[index], locHistory[index]);
           },
         });
-        history1.after(locButton);
-      });
-     }
-
+  
+        // Append the button to the history container
+        historyContainer.append(locButton);
+      }
+    }
+  }
+  
   // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
   function initMap(lat, lng, zip) {
     var coords = new google.maps.LatLng(lat, lng);
