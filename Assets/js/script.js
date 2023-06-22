@@ -104,28 +104,28 @@ $(document).ready(function () {
 
   function aqiLocationHistory(aqi, locDetails) {
     var history1 = $('.previous-search');
-    var aqiHistory = localStorage.getItem("ah");
-    var locHistory = localStorage.getItem("lh");
-      if (aqiHistory, locHistory) {
+    var aqiHistory = JSON.parse(localStorage.getItem("ah"));
+    var locHistory = JSON.parse(localStorage.getItem("lh"));
+      if (!aqiHistory, !locHistory) {
         aqiHistory = [];
         locHistory = [];
       }
       if (aqi, locDetails) {
         if (aqiHistory.length < 3 && locHistory.length < 3) {
-           aqiHistory.unshift(aqi);
-           locHistory.unshift(locDetails);
+          aqiHistory.unshift(aqi);
+          locHistory.unshift(locDetails);
         } else {
-          aqiHistory.pop(aqi);
-          locHistory.pop(locDetails);
+          aqiHistory.pop();
+          locHistory.pop();
           aqiHistory.unshift(aqi);
           locHistory.unshift(locDetails);
         }
-        localStorage.setItem("ah", aqi);
-        localStorage.setItem("lh", locDetails);
+        localStorage.setItem("ah", JSON.stringify(aqiHistory));
+        localStorage.setItem("lh", JSON.stringify(locHistory));
       }
       $.each(aqiHistory, function() {
         var locButton = $("<button>", {
-          text: this,
+          text: "AQI: " + this + " in " + locDetails,
           class: "history-button",
           click: function () {
             displayResults(aqiHistory, locHistory);
@@ -133,8 +133,7 @@ $(document).ready(function () {
         });
         history1.after(locButton);
       });
-  }
-
+     }
 
   // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
   function initMap(lat, lng, zip) {
