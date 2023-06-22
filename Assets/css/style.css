@@ -65,6 +65,10 @@ header {
   margin: 20px 0;
 }
 
+.history-button {
+  margin-top: 10px;
+}
+
 /* Search Form */
 #col-one .search-form {
   color: var(--dark);
