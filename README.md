@@ -1,4 +1,4 @@
-# Air Quality Camping Application
+# CampAire | Air Quality + Camping Application
 
 ## Description
 
@@ -27,6 +27,13 @@ THEN I am directed to its Google-listed website for more information.
 WHEN There are not any zip codes within the set distance with good enough air quality,
 THEN I am presented with a message telling me that I should not go camping at all.
 ```
+
+## Technologies Used
+
+- AirVisual API
+- Google Maps API
+- Fomantic UI CSS Framework
+- jQuery
 
 ## Collaborators
 
@@ -61,7 +68,7 @@ The following image shows the web application's appearance and functionality:
 
 ## Deployment
 
-[Click here to view the deployed application.]()
+[Click here to view the deployed application.](https://michiewillman.github.io/UofO_G4_Project-01/)
 
 [Click here to view the code repository.](https://github.com/michiewillman/UofO_G4_Project-01)
 
