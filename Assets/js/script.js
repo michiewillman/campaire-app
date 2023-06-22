@@ -97,13 +97,44 @@ $(document).ready(function () {
       // Show extra resource links
       resourcesContainer.removeClass('hide');
     }
-  
+    aqiLocationHistory(aqi, locDetails);
+
     return;
   }
 
-  // TODO: function to save inputted zipcode to local storage
-  // If user has nothing in local storage, show entry screen + hide results.
-  // If user has something in local storage, hide entry screen + show results.
+  function aqiLocationHistory(aqi, locDetails) {
+    var history1 = $('.previous-search');
+    var aqiHistory = localStorage.getItem("ah");
+    var locHistory = localStorage.getItem("lh");
+      if (aqiHistory, locHistory) {
+        aqiHistory = [];
+        locHistory = [];
+      }
+      if (aqi, locDetails) {
+        if (aqiHistory.length < 3 && locHistory.length < 3) {
+           aqiHistory.unshift(aqi);
+           locHistory.unshift(locDetails);
+        } else {
+          aqiHistory.pop(aqi);
+          locHistory.pop(locDetails);
+          aqiHistory.unshift(aqi);
+          locHistory.unshift(locDetails);
+        }
+        localStorage.setItem("ah", aqi);
+        localStorage.setItem("lh", locDetails);
+      }
+      $.each(aqiHistory, function() {
+        var locButton = $("<button>", {
+          text: this,
+          class: "history-button",
+          click: function () {
+            displayResults(aqiHistory, locHistory);
+          },
+        });
+        history1.after(locButton);
+      });
+  }
+
 
   // function to fetch info from Google Maps api for nearby Campgrounds from a given zip code
   function initMap(lat, lng, zip) {
